@@ -1,97 +1,75 @@
-// Mobile menu toggle
-document.getElementById('mobile-menu-button').addEventListener('click', function() {
-    const menu = document.getElementById('mobile-menu');
-    menu.classList.toggle('hidden');
-});
-
-// Estimation Calculator Logic
-document.getElementById('calculate-btn').addEventListener('click', function() {
-    const product = document.getElementById('product').value;
-    const width = parseFloat(document.getElementById('width').value) || 0;
-    const height = parseFloat(document.getElementById('height').value) || 0;
-    
-    if (!product || width <= 0 || height <= 0) {
-        document.getElementById('estimate-result').innerHTML = 
-            '<p class="text-red-500">Please select a product and enter valid dimensions</p>';
-        return;
-    }
-    
-    // Base prices per square foot for different products
-    const basePrices = {
-        'mesh-doors': 400,
-        'invisible-grills': 350,
-        'upvc-windows': 600,
-        'aluminium-windows': 450,
-        'led-mirrors': 1200,
-        'shower-partitions': 800,
-        'kitchen-profiles': 500
-    };
-    
-    const area = width * height;
-    const basePrice = basePrices[product] * area;
-    
-    // Add-ons cost
-    let addonsCost = 0;
-    const addons = document.querySelectorAll('input[type="checkbox"]:checked');
-    addons.forEach(addon => {
-        switch(addon.value) {
-            case 'child-lock': addonsCost += 500; break;
-            case 'premium-mesh': addonsCost += 800; break;
-            case 'frosted-glass': addonsCost += 1200; break;
-            case 'anti-fog': addonsCost += 1500; break;
-        }
-    });
-    
-    const totalEstimate = basePrice + addonsCost;
-    const variance = totalEstimate * 0.3; // 30% variance
-    
-    const minEstimate = Math.round(totalEstimate - variance);
-    const maxEstimate = Math.round(totalEstimate + variance);
-    
-    document.getElementById('estimate-result').innerHTML = `
-        <p class="text-3xl font-bold text-blue-700 mb-2">₹${minEstimate.toLocaleString()} - ₹${maxEstimate.toLocaleString()}</p>
-        <p class="text-gray-600">Estimated Starting Price</p>
-    `;
-});
-
-// Form submission
-document.getElementById('lead-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    // In a real implementation, you would send this data to your backend
-    // For this demo, we'll just show a success message
-    alert('Thank you for your inquiry! Our expert will contact you within 24 hours.');
-    document.getElementById('lead-form').reset();
-});
+// Main JavaScript for functionality
 
 // Smooth scrolling for navigation links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
-        
-        const targetId = this.getAttribute('href');
-        if (targetId === '#') return;
-        
-        const targetElement = document.querySelector(targetId);
-        if (targetElement) {
-            window.scrollTo({
-                top: targetElement.offsetTop - 80,
-                behavior: 'smooth'
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
             });
-            
-            // Close mobile menu if open
-            document.getElementById('mobile-menu').classList.add('hidden');
         }
     });
 });
 
-// Form validation
-document.querySelectorAll('.form-input').forEach(input => {
-    input.addEventListener('blur', function() {
-        if (this.hasAttribute('required') && !this.value) {
-            this.classList.add('border-red-500');
-        } else {
-            this.classList.remove('border-red-500');
-        }
+// Scroll to estimator function
+function scrollToEstimator() {
+    document.getElementById('estimator').scrollIntoView({
+        behavior: 'smooth'
     });
+}
+
+// WhatsApp integration
+function openWhatsApp() {
+    const phone = "919876543210"; // Replace with actual phone number
+    const message = "Hi, I'm interested in your home solutions services in Hyderabad. Can you provide more information?";
+    const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+    window.open(url, '_blank');
+}
+
+// Navbar background on scroll
+window.addEventListener('scroll', function() {
+    const navbar = document.querySelector('.navbar');
+    if (window.scrollY > 100) {
+        navbar.style.background = 'rgba(44, 62, 80, 0.98)';
+        navbar.style.padding = '10px 0';
+    } else {
+        navbar.style.background = 'rgba(44, 62, 80, 0.95)';
+        navbar.style.padding = '15px 0';
+    }
+});
+
+// Form handling
+document.getElementById('leadForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const formData = new FormData(this);
+    const name = this.querySelector('input[type="text"]').value;
+    const phone = this.querySelector('input[type="tel"]').value;
+    const area = this.querySelector('input[placeholder*="Area"]').value;
+    
+    const message = `New Lead from Website:%0A%0AName: ${name}%0APhone: ${phone}%0AArea: ${area}%0AInterested in: ${document.getElementById('serviceType').value}`;
+    
+    const whatsappUrl = `https://wa.me/919876543210?text=${message}`;
+    window.open(whatsappUrl, '_blank');
+    
+    // Reset form
+    this.reset();
+    
+    // Show success message
+    alert('Thank you! We will contact you shortly on WhatsApp.');
+});
+
+// Service areas in Hyderabad
+const hyderabadAreas = [
+    "Gachibowli", "HITEC City", "Madhapur", "Kondapur", "Jubilee Hills",
+    "Banjara Hills", "Financial District", "Nanakramguda", "Kokapet",
+    "Manikonda", "Miyapur", "Kukatpally", "Ameerpet", "SR Nagar"
+];
+
+// Initialize any other components
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Premium Home Solutions Website Loaded');
 });
