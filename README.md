@@ -6,13 +6,34 @@ A high-conversion lead generation web application for premium home solutions in 
 
 This single-page application is designed to dominate local SEO in Hyderabad for the specified niche and convert website traffic into qualified leads using strategic CTAs, a smart lead form, and a floating WhatsApp chatbot.
 
-## Features
+## Key Features
 
-- **SEO Optimized**: Local business schema, meta tags, and semantic HTML
-- **Mobile-First Design**: Responsive layout using Tailwind CSS
-- **Lead Generation**: Comprehensive contact form with smart fields
-- **Interactive Calculator**: Estimation calculator for approximate pricing
-- **WhatsApp Integration**: Floating chatbot with pre-populated messages
-- **Trust Signals**: Customer testimonials and service areas
+- **Service Images**: Real product images instead of icons
+- **Interactive Quote Popup**: Spin-effect popup with WhatsApp options
+- **WhatsApp Integration**: Direct form submission to WhatsApp (9642661602)
+- **Travel Fee Notice**: ₹250 mandatory site visit charge
+- **Extended Service Area**: Serving all over Andhra Pradesh and Telangana
+- **Powered by ViNi**: Footer attribution with link to vinisolutions.com
 
 ## File Structure
+
+## Setup Instructions
+
+1. Add high-quality product images to the `images/` directory with the specified names
+2. The website is ready to deploy to GitHub Pages or any web hosting service
+3. All form submissions will open WhatsApp with pre-filled messages to 9642661602
+
+## Customization
+
+- Update contact information in `index.html` and `js/chatbot.js`
+- Replace placeholder images with actual product photos
+- Modify the travel fee amount in the JavaScript if needed
+
+## Deployment
+
+Deploy to GitHub Pages by:
+1. Creating a repository with these files
+2. Enabling GitHub Pages in repository settings
+3. The site will be available at `https://[username].github.io/hyderabad-window-solutions/`
+
+For custom domain, update the CNAME settings in GitHub Pages.
