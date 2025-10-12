@@ -213,3 +213,45 @@ document.getElementById('quote-popup').addEventListener('click', function(e) {
         closeQuotePopup();
     }
 });
+
+// FAQ Accordion Functionality
+document.querySelectorAll('.faq-question').forEach(button => {
+    button.addEventListener('click', function() {
+        const faqItem = this.parentElement;
+        const answer = this.nextElementSibling;
+        const icon = this.querySelector('i');
+        
+        // Close all other FAQ items
+        document.querySelectorAll('.faq-item').forEach(item => {
+            if (item !== faqItem) {
+                item.querySelector('.faq-answer').classList.add('hidden');
+                item.querySelector('.faq-question').classList.remove('active');
+                item.querySelector('i').style.transform = 'rotate(0deg)';
+            }
+        });
+        
+        // Toggle current FAQ item
+        answer.classList.toggle('hidden');
+        this.classList.toggle('active');
+        
+        if (answer.classList.contains('hidden')) {
+            icon.style.transform = 'rotate(0deg)';
+        } else {
+            icon.style.transform = 'rotate(180deg)';
+        }
+    });
+});
+
+// Smooth scroll to calculator from FAQ CTA
+document.querySelectorAll('a[href="#calculator"]').forEach(link => {
+    link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const calculatorSection = document.querySelector('.py-16.bg-gray-100'); // Estimation calculator section
+        if (calculatorSection) {
+            window.scrollTo({
+                top: calculatorSection.offsetTop - 80,
+                behavior: 'smooth'
+            });
+        }
+    });
+});
