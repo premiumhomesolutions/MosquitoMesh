@@ -2,7 +2,7 @@
 class WhatsAppChatbot {
     constructor() {
         this.phoneNumber = '919642661602';
-        this.defaultMessage = "Hi, I'm interested in your services for my home in [Area, Hyderabad]. Can you provide more info?";
+        this.defaultMessage = "Hi, I'm interested in your services for my home. Can you provide more info?";
         this.init();
     }
     
@@ -96,9 +96,7 @@ class WhatsAppChatbot {
         }
         
         if (area) {
-            message += ` for my home in ${area}, Hyderabad`;
-        } else {
-            message += " for my home in Hyderabad";
+            message += ` for my home in ${area}`;
         }
         
         message += ". Can you provide more info?";
