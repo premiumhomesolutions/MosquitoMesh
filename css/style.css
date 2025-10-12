@@ -54,6 +54,30 @@ body {
     color: white;
 }
 
+/* Popup Animation */
+.popup-open {
+    transform: scale(1) !important;
+    opacity: 1 !important;
+}
+
+.spin {
+    animation: spin 0.5s ease-in-out;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg) scale(0.8);
+        opacity: 0;
+    }
+    70% {
+        transform: rotate(5deg) scale(1.05);
+    }
+    100% {
+        transform: rotate(0deg) scale(1);
+        opacity: 1;
+    }
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .hero-bg {
