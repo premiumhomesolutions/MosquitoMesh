@@ -37,18 +37,17 @@ function openVideoModal(title, videoSrc) {
 document.addEventListener('DOMContentLoaded', function() {
     const imageModal = document.getElementById('imageModal');
     const videoModal = document.getElementById('videoModal');
+    const serviceModal = document.getElementById('serviceModal');
+    const customerFormModal = document.getElementById('customerFormModal');
     
-    imageModal.addEventListener('click', function(e) {
-        if (e.target === imageModal) {
-            const modal = bootstrap.Modal.getInstance(imageModal);
-            modal.hide();
-        }
-    });
-    
-    videoModal.addEventListener('click', function(e) {
-        if (e.target === videoModal) {
-            const modal = bootstrap.Modal.getInstance(videoModal);
-            modal.hide();
+    [imageModal, videoModal, serviceModal, customerFormModal].forEach(modal => {
+        if (modal) {
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    const modalInstance = bootstrap.Modal.getInstance(modal);
+                    modalInstance.hide();
+                }
+            });
         }
     });
 });
