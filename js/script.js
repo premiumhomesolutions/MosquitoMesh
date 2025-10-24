@@ -1,210 +1,147 @@
-// Main JavaScript for functionality
+// Updated Estimation calculator functionality with new rates and addons
+const serviceRates = {
+    mesh: { 
+        base: 250, 
+        min: 2000, 
+        max: 15000,
+        unit: 'sqft',
+        addons: [
+            { id: 'premium-mesh', name: 'Premium Mesh', price: 50, unit: 'sqft' }
+        ]
+    },
+    invisible: { 
+        base: 190, 
+        min: 3000, 
+        max: 25000,
+        unit: 'sqft',
+        addons: [
+            { id: 'premium-invisible', name: 'Premium Invisible Grills', price: 200, unit: 'sqft' }
+        ]
+    },
+    aluminium: { 
+        base: 380, 
+        min: 4000, 
+        max: 35000,
+        unit: 'sqft',
+        addons: [
+            { id: 'premium-aluminium', name: 'Premium Aluminium Windows', price: 300, unit: 'sqft' }
+        ]
+    },
+    upvc: { 
+        base: 350, 
+        min: 5000, 
+        max: 45000,
+        unit: 'sqft',
+        addons: [
+            { id: 'tuffan-glass', name: 'Tuffan Glass', price: 30, unit: 'sqft' },
+            { id: 'color-glass', name: 'Color Glass', price: 20, unit: 'sqft' }
+        ]
+    },
+    led: { 
+        base: 550, 
+        min: 3000, 
+        max: 20000,
+        unit: 'sqft',
+        addons: [
+            { id: 'premium-led', name: 'Premium LED Mirrors', price: 30, unit: 'sqft' }
+        ]
+    },
+    shower: { 
+        base: 350, 
+        min: 6000, 
+        max: 30000,
+        unit: 'sqft',
+        addons: [
+            { id: 'premium-shower', name: 'Premium Shower Partition', price: 30, unit: 'sqft' }
+        ]
+    },
+    kitchen: { 
+        base: 440, 
+        min: 2500, 
+        max: 18000,
+        unit: 'sqft',
+        addons: [
+            { id: 'premium-kitchen', name: 'Premium Kitchen Profile', price: 50, unit: 'sqft' }
+        ]
+    },
+    hanger: { 
+        base: 2600, 
+        min: 2600, 
+        max: 26000,
+        unit: 'piece',
+        addons: [
+            { id: 'premium-hanger', name: 'Premium Cloth Hanger', price: 500, unit: 'piece' }
+        ]
+    }
+};
 
-// Smooth scrolling for navigation links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
+let selectedAddons = {};
+
+function updateAddons() {
+    const serviceType = document.getElementById('serviceType').value;
+    const addonsSection = document.getElementById('addonsSection');
+    const addonsContainer = document.getElementById('addonsContainer');
+    const dimensionLabel = document.getElementById('dimensionLabel');
+    const heightLabel = document.getElementById('heightLabel');
+    
+    // Reset addons
+    selectedAddons = {};
+    addonsContainer.innerHTML = '';
+    
+    if (serviceType && serviceRates[serviceType]) {
+        addonsSection.style.display = 'block';
+        
+        // Update dimension labels based on service type
+        if (serviceType === 'hanger') {
+            dimensionLabel.textContent = 'Length (feet) *';
+            heightLabel.style.display = 'none';
+            document.getElementById('height').style.display = 'none';
+        } else {
+            dimensionLabel.textContent = 'Width (feet) *';
+            heightLabel.style.display = 'block';
+            document.getElementById('height').style.display = 'block';
+            heightLabel.textContent = 'Height (feet) *';
+        }
+        
+        const addons = serviceRates[serviceType].addons;
+        
+        if (addons && addons.length > 0) {
+            addons.forEach(addon => {
+                const addonDiv = document.createElement('div');
+                addonDiv.className = 'addon-option';
+                addonDiv.innerHTML = `
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="${addon.id}" 
+                               onchange="toggleAddon('${addon.id}', ${addon.price}, '${addon.unit}')">
+                        <label class="form-check-label" for="${addon.id}">
+                            ${addon.name}
+                            <span class="addon-price">+₹${addon.price}/${addon.unit}</span>
+                        </label>
+                    </div>
+                `;
+                addonsContainer.appendChild(addonDiv);
             });
         }
-    });
-});
-
-// Scroll to estimator function
-function scrollToEstimator() {
-    document.getElementById('estimator').scrollIntoView({
-        behavior: 'smooth'
-    });
-}
-
-// Scroll to estimator with pre-selected service
-function scrollToEstimatorWithService(serviceType) {
-    document.getElementById('serviceType').value = serviceType;
-    updateAddons();
-    scrollToEstimator();
-}
-
-// WhatsApp integration
-function openWhatsApp() {
-    const phone = "919642661602";
-    const message = "Hi, I'm interested in your home solutions services. Can you provide more information?";
-    const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
-    window.open(url, '_blank');
-}
-
-// Phone call function
-function makeCall() {
-    window.location.href = 'tel:+919642661602';
-}
-
-// Navbar background on scroll
-window.addEventListener('scroll', function() {
-    const navbar = document.querySelector('.navbar');
-    if (window.scrollY > 100) {
-        navbar.style.background = 'rgba(44, 62, 80, 0.98)';
-        navbar.style.padding = '10px 0';
     } else {
-        navbar.style.background = 'rgba(44, 62, 80, 0.95)';
-        navbar.style.padding = '15px 0';
-    }
-});
-
-// Cities data
-const citiesData = {
-    telangana: [
-        "Hyderabad", "Secunderabad", "Gachibowli", "HITEC City", "Kukatpally", 
-        "Miyapur", "Lingampally", "Patenceru", "Kokapet", "Telapur", "Narsinghi"
-    ],
-    andhra: [
-        "Kurnool", "Vishakapatnam", "Guntur", "Tirupati", "Vijayawada",
-        "Nellore", "Kakinada", "Rajahmundry", "Anantapur", "Kadapa"
-    ]
-};
-
-// Update cities based on state selection
-function updateCities() {
-    const state = document.getElementById('state').value;
-    const citySelect = document.getElementById('city');
-    
-    citySelect.innerHTML = '<option value="">Select City</option>';
-    
-    if (state && citiesData[state]) {
-        citiesData[state].forEach(city => {
-            const option = document.createElement('option');
-            option.value = city.toLowerCase();
-            option.textContent = city;
-            citySelect.appendChild(option);
-        });
+        addonsSection.style.display = 'none';
+        dimensionLabel.textContent = 'Width (feet) *';
+        heightLabel.textContent = 'Height (feet) *';
+        document.getElementById('height').style.display = 'block';
     }
 }
 
-// Form handling with Tawk.io simulation
-document.getElementById('leadForm').addEventListener('submit', function(e) {
-    e.preventDefault();
+function toggleAddon(addonId, price, unit) {
+    const checkbox = document.getElementById(addonId);
+    const addonOption = checkbox.closest('.addon-option');
     
-    const formData = {
-        name: document.getElementById('customerName').value,
-        phone: document.getElementById('customerPhone').value,
-        email: document.getElementById('customerEmail').value,
-        state: document.getElementById('state').value,
-        city: document.getElementById('city').value,
-        projectDetails: document.getElementById('projectDetails').value,
-        service: document.getElementById('serviceType').value,
-        estimation: document.querySelector('.price-range') ? document.querySelector('.price-range').textContent : 'Not calculated'
-    };
-    
-    // Simulate Tawk.io form submission
-    submitToTawkIO(formData);
-});
-
-function submitToTawkIO(formData) {
-    // Show loading state
-    const submitBtn = document.querySelector('#leadForm button[type="submit"]');
-    const originalText = submitBtn.innerHTML;
-    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
-    submitBtn.disabled = true;
-    
-    // Simulate API call to Tawk.io
-    setTimeout(() => {
-        // Create success message
-        const successMessage = `
-🎉 Thank you, ${formData.name}!
-
-We have received your inquiry for:
-• Service: ${formData.service || 'Not specified'}
-• Location: ${formData.city ? formData.city.charAt(0).toUpperCase() + formData.city.slice(1) + ', ' : ''}${formData.state ? formData.state.charAt(0).toUpperCase() + formData.state.slice(1) : ''}
-• Estimated Budget: ${formData.estimation}
-
-Our representative will contact you at ${formData.phone} within 30 minutes to schedule a free site visit and provide exact pricing.
-
-For immediate assistance, you can:
-📞 Call us: +91 96426 61602
-💬 WhatsApp: https://wa.me/919642661602
-
-Thank you for choosing Premium Home Solutions!
-        `;
-        
-        // Show success modal or alert
-        showSuccessModal(successMessage);
-        
-        // Also send WhatsApp message
-        const whatsappMessage = `New Lead from Website:%0A%0AName: ${formData.name}%0APhone: ${formData.phone}%0AEmail: ${formData.email || 'Not provided'}%0ALocation: ${formData.city ? formData.city.charAt(0).toUpperCase() + formData.city.slice(1) + ', ' : ''}${formData.state ? formData.state.charAt(0).toUpperCase() + formData.state.slice(1) : ''}%0AService: ${formData.service || 'Not specified'}%0AProject: ${formData.projectDetails || 'Not provided'}%0AEstimation: ${formData.estimation}`;
-        
-        const whatsappUrl = `https://wa.me/919642661602?text=${whatsappMessage}`;
-        window.open(whatsappUrl, '_blank');
-        
-        // Reset form
-        document.getElementById('leadForm').reset();
-        
-        // Reset button
-        submitBtn.innerHTML = originalText;
-        submitBtn.disabled = false;
-    }, 2000);
+    if (checkbox.checked) {
+        selectedAddons[addonId] = { price: price, unit: unit };
+        addonOption.classList.add('selected');
+    } else {
+        delete selectedAddons[addonId];
+        addonOption.classList.remove('selected');
+    }
 }
 
-function showSuccessModal(message) {
-    // Create modal element
-    const modalDiv = document.createElement('div');
-    modalDiv.className = 'modal fade';
-    modalDiv.id = 'successModal';
-    modalDiv.innerHTML = `
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header bg-success text-white">
-                    <h5 class="modal-title"><i class="fas fa-check-circle"></i> Success!</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="text-center">
-                        <i class="fas fa-check-circle text-success" style="font-size: 3rem;"></i>
-                        <p class="mt-3" style="white-space: pre-line;">${message}</p>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-success" data-bs-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    `;
-    
-    document.body.appendChild(modalDiv);
-    
-    const successModal = new bootstrap.Modal(modalDiv);
-    successModal.show();
-    
-    // Remove modal from DOM after it's hidden
-    modalDiv.addEventListener('hidden.bs.modal', function() {
-        document.body.removeChild(modalDiv);
-    });
-}
-
-// Service areas in Hyderabad and Andhra Pradesh
-const serviceAreas = {
-    telangana: [
-        "Kukatpally", "Miyapur", "Gachibowli", "HITEC City", "Lingampally", 
-        "Patenceru", "Kokapet", "Telapur", "Narsinghi", "Secunderabad", "Hyderabad"
-    ],
-    andhra: [
-        "Kurnool", "Vishakapatnam", "Guntur", "Tirupati", "Vijayawada",
-        "Nellore", "Kakinada", "Rajahmundry", "Anantapur", "Kadapa"
-    ]
-};
-
-// Initialize when DOM is loaded
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('Premium Home Solutions Website Loaded');
-    updateCities(); // Initialize cities dropdown
-    
-    // Add some CSS for the success modal
-    const style = document.createElement('style');
-    style.textContent = `
-        .modal-backdrop {
-            background-color: rgba(0,0,0,0.7);
-        }
-    `;
-    document.head.appendChild(style);
-});
+// This function is now integrated into script.js for better flow
+// The calculateEstimation function is moved to script.js
