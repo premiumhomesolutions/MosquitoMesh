@@ -9,7 +9,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* All your original CSS styles preserved */
         :root {
             --primary: #2c3e50;
             --secondary: #3498db;
@@ -24,6 +23,7 @@
             padding-top: 76px;
         }
         
+        /* Navigation */
         .navbar {
             background-color: var(--primary) !important;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
@@ -49,6 +49,7 @@
             color: white !important;
         }
         
+        /* Hero Section */
         .hero-section {
             background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             color: white;
@@ -114,6 +115,7 @@
             transform: translateY(-5px);
         }
         
+        /* Section Titles */
         .section-title {
             font-size: 2.5rem;
             font-weight: 700;
@@ -129,6 +131,7 @@
             color: #666;
         }
         
+        /* Services Section */
         .services-section {
             padding: 100px 0;
             background-color: #f8f9fa;
@@ -224,6 +227,7 @@
             background-color: var(--secondary);
         }
         
+        /* Estimation Section */
         .estimator-section {
             padding: 100px 0;
             background: white;
@@ -271,6 +275,7 @@
             margin-bottom: 8px;
         }
         
+        /* Testimonials */
         .testimonials-section {
             padding: 100px 0;
             background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
@@ -294,6 +299,7 @@
             font-style: italic;
         }
         
+        /* FAQ Section */
         .faq-section {
             padding: 100px 0;
             background: white;
@@ -309,6 +315,7 @@
             color: var(--primary);
         }
         
+        /* Contact Section */
         .contact-section {
             padding: 100px 0;
             background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
@@ -354,6 +361,7 @@
             font-weight: 600;
         }
         
+        /* Floating Buttons */
         .whatsapp-float, .phone-float {
             position: fixed;
             bottom: 25px;
@@ -388,6 +396,7 @@
             font-weight: 600;
         }
         
+        /* Modal Styles */
         .modal-content {
             border-radius: 10px;
             border: none;
@@ -424,6 +433,7 @@
             margin-top: 25px;
         }
         
+        /* Estimation Modal Styles */
         .estimation-modal-content {
             padding: 20px 0;
         }
@@ -433,6 +443,7 @@
             margin-bottom: 20px;
         }
         
+        /* Responsive */
         @media (max-width: 768px) {
             .hero-title {
                 font-size: 2.2rem;
@@ -1377,6 +1388,20 @@
                     <form id="modalEstimationForm">
                         <div class="row g-3">
                             <div class="col-md-6">
+                                <label class="form-label">Select Service *</label>
+                                <select class="form-select" id="modalServiceType" required onchange="updateModalAddons()">
+                                    <option value="${currentServiceType}" selected>${service.title} - ${service.price}</option>
+                                    <option value="mesh">Mosquito Mesh Doors - ₹250/sqft</option>
+                                    <option value="invisible">Invisible Grills - ₹190/sqft</option>
+                                    <option value="aluminium">Aluminium Windows - ₹380/sqft</option>
+                                    <option value="upvc">UPVC Windows - ₹350/sqft</option>
+                                    <option value="led">LED Mirrors - ₹550/sqft</option>
+                                    <option value="shower">Shower Partitions - ₹350/sqft</option>
+                                    <option value="kitchen">Aluminium Kitchen Profile - ₹440/sqft</option>
+                                    <option value="hanger">Cloth Hanger - ₹2600/piece</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
                                 <label class="form-label">Property Type *</label>
                                 <select class="form-select" id="modalPropertyType" required>
                                     <option value="">Choose Type</option>
@@ -1385,10 +1410,6 @@
                                     <option value="office">Office</option>
                                     <option value="commercial">Commercial</option>
                                 </select>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label">Service</label>
-                                <input type="text" class="form-control" value="${service.title}" readonly>
                             </div>
                             
                             <div class="col-md-4">
@@ -1402,6 +1423,12 @@
                             <div class="col-md-4">
                                 <label class="form-label">Quantity *</label>
                                 <input type="number" class="form-control" id="modalQuantity" placeholder="e.g., 2" min="1" required>
+                            </div>
+
+                            <!-- Dynamic Addons Section -->
+                            <div class="col-12" id="modalAddonsSection" style="display: none;">
+                                <label class="form-label">Premium Features (Optional)</label>
+                                <div id="modalAddonsContainer"></div>
                             </div>
 
                             <div class="col-12">
@@ -1444,6 +1471,19 @@
             
             // Update modal title
             document.getElementById('serviceModalTitle').textContent = `Get Estimation - ${service.title}`;
+            
+            // Initialize addons for the modal
+            updateModalAddons();
+        }
+
+        // Update addons for modal estimation
+        function updateModalAddons() {
+            const serviceType = document.getElementById('modalServiceType').value;
+            const addonsSection = document.getElementById('modalAddonsSection');
+            const addonsContainer = document.getElementById('modalAddonsContainer');
+            
+            // For now, we'll keep addons section hidden as in the original
+            addonsSection.style.display = 'none';
         }
 
         // Reset modal back to service view
@@ -1453,11 +1493,12 @@
 
         // Calculate estimation in modal
         function calculateModalEstimation() {
+            const serviceType = document.getElementById('modalServiceType').value;
             const width = parseFloat(document.getElementById('modalWidth').value) || 0;
             const height = parseFloat(document.getElementById('modalHeight').value) || 0;
             const quantity = parseInt(document.getElementById('modalQuantity').value) || 0;
             
-            if (!currentServiceType || width <= 0 || height <= 0 || quantity <= 0) {
+            if (!serviceType || width <= 0 || height <= 0 || quantity <= 0) {
                 alert('Please fill all required fields with valid values.');
                 return;
             }
@@ -1475,20 +1516,20 @@
             };
             
             let totalCost;
-            if (currentServiceType === 'hanger') {
+            if (serviceType === 'hanger') {
                 // For cloth hangers, price is per piece
-                totalCost = prices[currentServiceType] * quantity;
+                totalCost = prices[serviceType] * quantity;
             } else {
                 // For other services, calculate based on area
                 const area = width * height;
-                totalCost = prices[currentServiceType] * area * quantity;
+                totalCost = prices[serviceType] * area * quantity;
             }
             
             // Display result
             const resultDiv = document.getElementById('modalEstimationResult');
             resultDiv.innerHTML = `
                 <h5 class="text-success">Estimated Cost: ₹${totalCost.toLocaleString()}</h5>
-                <p class="mb-1"><strong>Service:</strong> ${serviceData[currentServiceType].title}</p>
+                <p class="mb-1"><strong>Service:</strong> ${document.getElementById('modalServiceType').options[document.getElementById('modalServiceType').selectedIndex].text.split(' - ')[0]}</p>
                 <p class="mb-1"><strong>Area:</strong> ${width}ft × ${height}ft = ${(width * height).toFixed(2)} sqft</p>
                 <p class="mb-0"><strong>Quantity:</strong> ${quantity}</p>
                 <hr>
@@ -1504,7 +1545,8 @@
 
         // Open WhatsApp with estimation details
         function openWhatsAppWithEstimation(totalCost) {
-            const service = serviceData[currentServiceType];
+            const serviceType = document.getElementById('modalServiceType').value;
+            const service = serviceData[serviceType];
             const width = parseFloat(document.getElementById('modalWidth').value) || 0;
             const height = parseFloat(document.getElementById('modalHeight').value) || 0;
             const quantity = parseInt(document.getElementById('modalQuantity').value) || 0;
