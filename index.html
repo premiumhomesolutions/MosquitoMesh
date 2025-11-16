@@ -9,6 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+        /* All your original CSS styles preserved */
         :root {
             --primary: #2c3e50;
             --secondary: #3498db;
@@ -23,7 +24,6 @@
             padding-top: 76px;
         }
         
-        /* Navigation */
         .navbar {
             background-color: var(--primary) !important;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
@@ -49,7 +49,6 @@
             color: white !important;
         }
         
-        /* Hero Section */
         .hero-section {
             background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             color: white;
@@ -115,7 +114,6 @@
             transform: translateY(-5px);
         }
         
-        /* Section Titles */
         .section-title {
             font-size: 2.5rem;
             font-weight: 700;
@@ -131,7 +129,6 @@
             color: #666;
         }
         
-        /* Services Section */
         .services-section {
             padding: 100px 0;
             background-color: #f8f9fa;
@@ -227,7 +224,6 @@
             background-color: var(--secondary);
         }
         
-        /* Estimation Section */
         .estimator-section {
             padding: 100px 0;
             background: white;
@@ -275,7 +271,6 @@
             margin-bottom: 8px;
         }
         
-        /* Testimonials */
         .testimonials-section {
             padding: 100px 0;
             background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
@@ -299,7 +294,6 @@
             font-style: italic;
         }
         
-        /* FAQ Section */
         .faq-section {
             padding: 100px 0;
             background: white;
@@ -315,7 +309,6 @@
             color: var(--primary);
         }
         
-        /* Contact Section */
         .contact-section {
             padding: 100px 0;
             background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
@@ -361,7 +354,6 @@
             font-weight: 600;
         }
         
-        /* Floating Buttons */
         .whatsapp-float, .phone-float {
             position: fixed;
             bottom: 25px;
@@ -396,7 +388,6 @@
             font-weight: 600;
         }
         
-        /* Modal Styles */
         .modal-content {
             border-radius: 10px;
             border: none;
@@ -433,7 +424,6 @@
             margin-top: 25px;
         }
         
-        /* Estimation Modal Styles */
         .estimation-modal-content {
             padding: 20px 0;
         }
@@ -443,7 +433,6 @@
             margin-bottom: 20px;
         }
         
-        /* Responsive */
         @media (max-width: 768px) {
             .hero-title {
                 font-size: 2.2rem;
@@ -473,7 +462,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
         <div class="container">
             <a class="navbar-brand" href="#">
-                <img src="https://via.placeholder.com/40/2c3e50/ffffff?text=PHS" alt="Premium Home Solutions" height="40">
+                <img src="images/logo.png" alt="Premium Home Solutions" height="40">
                 Premium Home Solutions
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -524,7 +513,7 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="hero-image">
-                        <img src="https://via.placeholder.com/600x400/3498db/ffffff?text=Premium+Home+Solutions" alt="Premium Home Solutions" class="img-fluid">
+                        <img src="images/hero-bg.png" alt="Premium Home Solutions" class="img-fluid" onclick="openImageModal('images/hero-bg.png')">
                     </div>
                 </div>
             </div>
@@ -542,7 +531,10 @@
                 <div class="col-md-4">
                     <div class="service-card">
                         <div class="image-container">
-                            <img src="https://via.placeholder.com/400x250/ecf0f1/2c3e50?text=Mosquito+Mesh" alt="Mosquito Mesh Doors" class="service-img">
+                            <img src="images/mesh-sliding.jpeg" alt="Mosquito Mesh Doors" class="service-img" onclick="openImageModal('images/mesh-sliding.jpeg')">
+                            <button class="view-video-btn" onclick="openVideoModal('Mesh Sliding Doors', 'videos/mesh-doors.mp4')">
+                                <i class="fas fa-play"></i> View Video
+                            </button>
                         </div>
                         <div class="service-content">
                             <h3>Mosquito Mesh Doors</h3>
@@ -576,7 +568,10 @@
                 <div class="col-md-4">
                     <div class="service-card">
                         <div class="image-container">
-                            <img src="https://via.placeholder.com/400x250/ecf0f1/2c3e50?text=Invisible+Grills" alt="Invisible Grills" class="service-img">
+                            <img src="images/invisible-grills.jpeg" alt="Invisible Grills" class="service-img" onclick="openImageModal('images/invisible-grills.jpeg')">
+                            <button class="view-video-btn" onclick="openVideoModal('Invisible Grills', 'videos/invisible-grills.mp4')">
+                                <i class="fas fa-play"></i> View Video
+                            </button>
                         </div>
                         <div class="service-content">
                             <h3>Invisible Grills</h3>
@@ -610,7 +605,10 @@
                 <div class="col-md-4">
                     <div class="service-card">
                         <div class="image-container">
-                            <img src="https://via.placeholder.com/400x250/ecf0f1/2c3e50?text=UPVC+Windows" alt="UPVC Windows" class="service-img">
+                            <img src="images/upvc-windows.jpeg" alt="UPVC Windows" class="service-img" onclick="openImageModal('images/upvc-windows.jpeg')">
+                            <button class="view-video-btn" onclick="openVideoModal('UPVC Windows', 'videos/upvc-windows.mp4')">
+                                <i class="fas fa-play"></i> View Video
+                            </button>
                         </div>
                         <div class="service-content">
                             <h3>UPVC Windows</h3>
@@ -639,6 +637,191 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Service 4 - Aluminium Windows -->
+                <div class="col-md-4">
+                    <div class="service-card">
+                        <div class="image-container">
+                            <img src="images/aluminium-windows.png" alt="Aluminium Windows" class="service-img" onclick="openImageModal('images/aluminium-windows.png')">
+                            <button class="view-video-btn" onclick="openVideoModal('Aluminium Windows', 'videos/aluminium-windows.mp4')">
+                                <i class="fas fa-play"></i> View Video
+                            </button>
+                        </div>
+                        <div class="service-content">
+                            <h3>Aluminium Windows</h3>
+                            <p>Durable and stylish aluminium windows with modern designs and finishes.</p>
+                            <div class="service-details">
+                                <div class="detail-item">
+                                    <i class="fas fa-shield-alt"></i>
+                                    <span>12 Years Warranty</span>
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fas fa-gem"></i>
+                                    <span>Premium Aluminium</span>
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fas fa-calendar-day"></i>
+                                    <span>2-4 Days Installation</span>
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fas fa-users"></i>
+                                    <span>3-4 Expert Laborers</span>
+                                </div>
+                            </div>
+                            <button class="btn-service" onclick="openServiceModal('aluminium')">
+                                <i class="fas fa-calculator"></i> Get Quote
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service 5 - LED Mirrors -->
+                <div class="col-md-4">
+                    <div class="service-card">
+                        <div class="image-container">
+                            <img src="images/led-mirrors.jpeg" alt="LED Mirrors" class="service-img" onclick="openImageModal('images/led-mirrors.jpeg')">
+                            <button class="view-video-btn" onclick="openVideoModal('LED Mirrors', 'videos/led-mirrors.mp4')">
+                                <i class="fas fa-play"></i> View Video
+                            </button>
+                        </div>
+                        <div class="service-content">
+                            <h3>LED Mirrors</h3>
+                            <p>Modern LED mirrors with anti-fog technology and touch controls for your bathroom.</p>
+                            <div class="service-details">
+                                <div class="detail-item">
+                                    <i class="fas fa-shield-alt"></i>
+                                    <span>5 Years Warranty</span>
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fas fa-gem"></i>
+                                    <span>Anti-Fog Technology</span>
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fas fa-calendar-day"></i>
+                                    <span>1 Day Installation</span>
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fas fa-users"></i>
+                                    <span>1-2 Expert Laborers</span>
+                                </div>
+                            </div>
+                            <button class="btn-service" onclick="openServiceModal('led')">
+                                <i class="fas fa-calculator"></i> Get Quote
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service 6 - Shower Partitions -->
+                <div class="col-md-4">
+                    <div class="service-card">
+                        <div class="image-container">
+                            <img src="images/shower-partitions.jpeg" alt="Shower Partitions" class="service-img" onclick="openImageModal('images/shower-partitions.jpeg')">
+                            <button class="view-video-btn" onclick="openVideoModal('Shower Partitions', 'videos/shower-partitions.mp4')">
+                                <i class="fas fa-play"></i> View Video
+                            </button>
+                        </div>
+                        <div class="service-content">
+                            <h3>Shower Partitions</h3>
+                            <p>Elegant glass shower partitions that add style and functionality to your bathroom.</p>
+                            <div class="service-details">
+                                <div class="detail-item">
+                                    <i class="fas fa-shield-alt"></i>
+                                    <span>8 Years Warranty</span>
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fas fa-gem"></i>
+                                    <span>Tempered Glass</span>
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fas fa-calendar-day"></i>
+                                    <span>2-3 Days Installation</span>
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fas fa-users"></i>
+                                    <span>2-3 Expert Laborers</span>
+                                </div>
+                            </div>
+                            <button class="btn-service" onclick="openServiceModal('shower')">
+                                <i class="fas fa-calculator"></i> Get Quote
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service 7 - Kitchen Profiles -->
+                <div class="col-md-4">
+                    <div class="service-card">
+                        <div class="image-container">
+                            <img src="images/kitchen-profiles.jpeg" alt="Aluminium Kitchen Profiles" class="service-img" onclick="openImageModal('images/kitchen-profiles.jpeg')">
+                            <button class="view-video-btn" onclick="openVideoModal('Kitchen Profiles', 'videos/kitchen-profiles.mp4')">
+                                <i class="fas fa-play"></i> View Video
+                            </button>
+                        </div>
+                        <div class="service-content">
+                            <h3>Kitchen Profiles</h3>
+                            <p>Premium aluminium profiles for modern kitchen cabinets and modular kitchens.</p>
+                            <div class="service-details">
+                                <div class="detail-item">
+                                    <i class="fas fa-shield-alt"></i>
+                                    <span>10 Years Warranty</span>
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fas fa-gem"></i>
+                                    <span>Rust Proof</span>
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fas fa-calendar-day"></i>
+                                    <span>3-4 Days Installation</span>
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fas fa-users"></i>
+                                    <span>3-4 Expert Laborers</span>
+                                </div>
+                            </div>
+                            <button class="btn-service" onclick="openServiceModal('kitchen')">
+                                <i class="fas fa-calculator"></i> Get Quote
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service 8 - Cloth Hangers -->
+                <div class="col-md-4">
+                    <div class="service-card">
+                        <div class="image-container">
+                            <img src="images/cloth-hanger.png" alt="Cloth Hangers" class="service-img" onclick="openImageModal('images/cloth-hanger.png')">
+                            <button class="view-video-btn" onclick="openVideoModal('Cloth Hangers', 'videos/cloth-hanger.mp4')">
+                                <i class="fas fa-play"></i> View Video
+                            </button>
+                        </div>
+                        <div class="service-content">
+                            <h3>Cloth Hangers</h3>
+                            <p>Premium quality cloth hangers and drying solutions for modern homes.</p>
+                            <div class="service-details">
+                                <div class="detail-item">
+                                    <i class="fas fa-shield-alt"></i>
+                                    <span>3 Years Warranty</span>
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fas fa-gem"></i>
+                                    <span>Stainless Steel</span>
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fas fa-calendar-day"></i>
+                                    <span>1 Day Installation</span>
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fas fa-users"></i>
+                                    <span>1-2 Expert Laborers</span>
+                                </div>
+                            </div>
+                            <button class="btn-service" onclick="openServiceModal('hanger')">
+                                <i class="fas fa-calculator"></i> Get Quote
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -656,7 +839,7 @@
                             <div class="row g-3">
                                 <div class="col-md-6">
                                     <label class="form-label">Select Service *</label>
-                                    <select class="form-select" id="serviceType" required>
+                                    <select class="form-select" id="serviceType" required onchange="updateAddons()">
                                         <option value="">Choose Service</option>
                                         <option value="mesh">Mosquito Mesh Doors - ₹250/sqft</option>
                                         <option value="invisible">Invisible Grills - ₹190/sqft</option>
@@ -680,11 +863,11 @@
                                 </div>
                                 
                                 <div class="col-md-4">
-                                    <label class="form-label">Width (feet) *</label>
+                                    <label class="form-label" id="dimensionLabel">Width (feet) *</label>
                                     <input type="number" class="form-control" id="width" placeholder="e.g., 6" min="1" required>
                                 </div>
                                 <div class="col-md-4">
-                                    <label class="form-label">Height (feet) *</label>
+                                    <label class="form-label" id="heightLabel">Height (feet) *</label>
                                     <input type="number" class="form-control" id="height" placeholder="e.g., 7" min="1" required>
                                 </div>
                                 <div class="col-md-4">
@@ -692,8 +875,14 @@
                                     <input type="number" class="form-control" id="quantity" placeholder="e.g., 2" min="1" required>
                                 </div>
 
+                                <!-- Dynamic Addons Section -->
+                                <div class="col-12" id="addonsSection" style="display: none;">
+                                    <label class="form-label">Premium Features (Optional)</label>
+                                    <div id="addonsContainer"></div>
+                                </div>
+
                                 <div class="col-12">
-                                    <button type="button" class="btn btn-primary btn-lg" onclick="calculateEstimation()">
+                                    <button type="button" class="btn btn-primary btn-lg" onclick="showCustomerForm()">
                                         <i class="fas fa-calculator"></i> Calculate Estimation
                                     </button>
                                 </div>
@@ -836,6 +1025,46 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- FAQ 4 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
+                            What areas do you serve?
+                        </button>
+                    </h2>
+                    <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            <p>We serve entire Telangana and Andhra Pradesh:</p>
+                            <ul>
+                                <li><strong>Telangana:</strong> Hyderabad, Secunderabad, Gachibowli, HITEC City, Kukatpally, Miyapur, and all surrounding areas</li>
+                                <li><strong>Andhra Pradesh:</strong> Vishakapatnam, Vijayawada, Guntur, Tirupati, Kurnool, and all major cities</li>
+                            </ul>
+                            <button class="btn btn-primary mt-2" onclick="scrollToEstimator()">Check Service in Your Area</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ 5 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq5">
+                            How do I maintain these products?
+                        </button>
+                    </h2>
+                    <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            <p>Maintenance is easy:</p>
+                            <ul>
+                                <li><strong>Mosquito Mesh:</strong> Wipe with damp cloth monthly</li>
+                                <li><strong>Invisible Grills:</strong> No maintenance required</li>
+                                <li><strong>UPVC Windows:</strong> Clean with mild soap water</li>
+                                <li><strong>LED Mirrors:</strong> Use glass cleaner</li>
+                            </ul>
+                            <button class="btn btn-primary mt-2" onclick="openWhatsApp()">Get Maintenance Guide</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -914,9 +1143,73 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    <div id="serviceModalContent" class="service-modal-content">
+                    <div id="serviceModalContent">
                         <!-- Content will be dynamically filled -->
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Customer Form Modal -->
+    <div class="modal fade" id="customerFormModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Get Your Estimation</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="customerEstimationForm">
+                        <div class="mb-3">
+                            <label class="form-label">Your Name *</label>
+                            <input type="text" class="form-control" id="estimationName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Phone Number *</label>
+                            <input type="tel" class="form-control" id="estimationPhone" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" id="estimationEmail">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Location *</label>
+                            <input type="text" class="form-control" id="estimationLocation" placeholder="e.g., Gachibowli, Hyderabad" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Get My Estimation</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Image Modal -->
+    <div class="modal fade" id="imageModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <img id="modalImage" src="" alt="" class="img-fluid">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Video Modal -->
+    <div class="modal fade" id="videoModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="videoModalTitle">Product Video</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <video id="modalVideo" controls class="w-100">
+                        Your browser does not support the video tag.
+                    </video>
                 </div>
             </div>
         </div>
@@ -964,6 +1257,51 @@
                 installation: "3-5 Days Installation",
                 laborers: "4-5 Expert Laborers",
                 features: ["German Technology", "Thermal Insulation", "Noise Reduction", "Easy Maintenance"]
+            },
+            aluminium: {
+                title: "Aluminium Windows",
+                description: "Durable and stylish aluminium windows with modern designs and finishes.",
+                price: "₹380/sqft",
+                warranty: "12 Years Warranty",
+                installation: "2-4 Days Installation",
+                laborers: "3-4 Expert Laborers",
+                features: ["Premium Aluminium", "Modern Designs", "Durable", "Stylish Finishes"]
+            },
+            led: {
+                title: "LED Mirrors",
+                description: "Modern LED mirrors with anti-fog technology and touch controls for your bathroom.",
+                price: "₹550/sqft",
+                warranty: "5 Years Warranty",
+                installation: "1 Day Installation",
+                laborers: "1-2 Expert Laborers",
+                features: ["Anti-Fog Technology", "Touch Controls", "Modern Design", "Energy Efficient"]
+            },
+            shower: {
+                title: "Shower Partitions",
+                description: "Elegant glass shower partitions that add style and functionality to your bathroom.",
+                price: "₹350/sqft",
+                warranty: "8 Years Warranty",
+                installation: "2-3 Days Installation",
+                laborers: "2-3 Expert Laborers",
+                features: ["Tempered Glass", "Elegant Design", "Easy to Clean", "Style and Functionality"]
+            },
+            kitchen: {
+                title: "Kitchen Profiles",
+                description: "Premium aluminium profiles for modern kitchen cabinets and modular kitchens.",
+                price: "₹440/sqft",
+                warranty: "10 Years Warranty",
+                installation: "3-4 Days Installation",
+                laborers: "3-4 Expert Laborers",
+                features: ["Rust Proof", "Premium Aluminium", "Modern Kitchen", "Modular Kitchens"]
+            },
+            hanger: {
+                title: "Cloth Hangers",
+                description: "Premium quality cloth hangers and drying solutions for modern homes.",
+                price: "₹2600/piece",
+                warranty: "3 Years Warranty",
+                installation: "1 Day Installation",
+                laborers: "1-2 Expert Laborers",
+                features: ["Stainless Steel", "Premium Quality", "Drying Solutions", "Modern Homes"]
             }
         };
 
@@ -978,40 +1316,42 @@
             
             const modalContent = document.getElementById('serviceModalContent');
             modalContent.innerHTML = `
-                <h4>${service.title}</h4>
-                <p>${service.description}</p>
-                
-                <div class="service-modal-details">
-                    <div class="service-modal-feature">
-                        <i class="fas fa-tag text-primary"></i>
-                        <span><strong>Price:</strong> ${service.price}</span>
+                <div class="service-modal-content">
+                    <h4>${service.title}</h4>
+                    <p>${service.description}</p>
+                    
+                    <div class="service-modal-details">
+                        <div class="service-modal-feature">
+                            <i class="fas fa-tag text-primary"></i>
+                            <span><strong>Price:</strong> ${service.price}</span>
+                        </div>
+                        <div class="service-modal-feature">
+                            <i class="fas fa-shield-alt text-primary"></i>
+                            <span><strong>Warranty:</strong> ${service.warranty}</span>
+                        </div>
+                        <div class="service-modal-feature">
+                            <i class="fas fa-calendar-day text-primary"></i>
+                            <span><strong>Installation Time:</strong> ${service.installation}</span>
+                        </div>
+                        <div class="service-modal-feature">
+                            <i class="fas fa-users text-primary"></i>
+                            <span><strong>Labor Team:</strong> ${service.laborers}</span>
+                        </div>
                     </div>
-                    <div class="service-modal-feature">
-                        <i class="fas fa-shield-alt text-primary"></i>
-                        <span><strong>Warranty:</strong> ${service.warranty}</span>
+                    
+                    <h5>Key Features:</h5>
+                    <ul>
+                        ${service.features.map(feature => `<li>${feature}</li>`).join('')}
+                    </ul>
+                    
+                    <div class="service-modal-buttons">
+                        <button class="btn btn-primary" onclick="transformToEstimationModal()">
+                            <i class="fas fa-calculator"></i> Get Estimation
+                        </button>
+                        <button class="btn btn-outline-secondary" onclick="openWhatsApp()">
+                            <i class="fab fa-whatsapp"></i> Chat on WhatsApp
+                        </button>
                     </div>
-                    <div class="service-modal-feature">
-                        <i class="fas fa-calendar-day text-primary"></i>
-                        <span><strong>Installation Time:</strong> ${service.installation}</span>
-                    </div>
-                    <div class="service-modal-feature">
-                        <i class="fas fa-users text-primary"></i>
-                        <span><strong>Labor Team:</strong> ${service.laborers}</span>
-                    </div>
-                </div>
-                
-                <h5>Key Features:</h5>
-                <ul>
-                    ${service.features.map(feature => `<li>${feature}</li>`).join('')}
-                </ul>
-                
-                <div class="service-modal-buttons">
-                    <button class="btn btn-primary" onclick="transformToEstimationModal()">
-                        <i class="fas fa-calculator"></i> Get Estimation
-                    </button>
-                    <button class="btn btn-outline-secondary" onclick="openWhatsApp()">
-                        <i class="fab fa-whatsapp"></i> Chat on WhatsApp
-                    </button>
                 </div>
             `;
             
@@ -1030,74 +1370,76 @@
             
             const modalContent = document.getElementById('serviceModalContent');
             modalContent.innerHTML = `
-                <h4 class="estimation-modal-title">Get Your Estimation for ${service.title}</h4>
-                <p>Fill in the details below to get an instant cost estimation</p>
-                
-                <form id="modalEstimationForm">
-                    <div class="row g-3">
-                        <div class="col-md-6">
-                            <label class="form-label">Property Type *</label>
-                            <select class="form-select" id="modalPropertyType" required>
-                                <option value="">Choose Type</option>
-                                <option value="apartment">Apartment</option>
-                                <option value="villa">Villa</option>
-                                <option value="office">Office</option>
-                                <option value="commercial">Commercial</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Service</label>
-                            <input type="text" class="form-control" value="${service.title}" readonly>
-                        </div>
-                        
-                        <div class="col-md-4">
-                            <label class="form-label">Width (feet) *</label>
-                            <input type="number" class="form-control" id="modalWidth" placeholder="e.g., 6" min="1" required>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Height (feet) *</label>
-                            <input type="number" class="form-control" id="modalHeight" placeholder="e.g., 7" min="1" required>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Quantity *</label>
-                            <input type="number" class="form-control" id="modalQuantity" placeholder="e.g., 2" min="1" required>
-                        </div>
-
-                        <div class="col-12">
-                            <div id="modalEstimationResult" class="alert alert-info" style="display: none;">
-                                <!-- Result will be shown here -->
+                <div class="estimation-modal-content">
+                    <h4 class="estimation-modal-title">Get Your Estimation for ${service.title}</h4>
+                    <p>Fill in the details below to get an instant cost estimation</p>
+                    
+                    <form id="modalEstimationForm">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Property Type *</label>
+                                <select class="form-select" id="modalPropertyType" required>
+                                    <option value="">Choose Type</option>
+                                    <option value="apartment">Apartment</option>
+                                    <option value="villa">Villa</option>
+                                    <option value="office">Office</option>
+                                    <option value="commercial">Commercial</option>
+                                </select>
                             </div>
-                        </div>
-
-                        <div class="col-12">
-                            <div class="d-flex gap-2">
-                                <button type="button" class="btn btn-primary flex-fill" onclick="calculateModalEstimation()">
-                                    <i class="fas fa-calculator"></i> Calculate Estimation
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary" onclick="resetModalToService()">
-                                    <i class="fas fa-arrow-left"></i> Back
-                                </button>
+                            <div class="col-md-6">
+                                <label class="form-label">Service</label>
+                                <input type="text" class="form-control" value="${service.title}" readonly>
                             </div>
-                        </div>
+                            
+                            <div class="col-md-4">
+                                <label class="form-label">Width (feet) *</label>
+                                <input type="number" class="form-control" id="modalWidth" placeholder="e.g., 6" min="1" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Height (feet) *</label>
+                                <input type="number" class="form-control" id="modalHeight" placeholder="e.g., 7" min="1" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Quantity *</label>
+                                <input type="number" class="form-control" id="modalQuantity" placeholder="e.g., 2" min="1" required>
+                            </div>
 
-                        <div class="col-12 mt-3">
-                            <div class="estimation-features">
-                                <div class="feature">
-                                    <i class="fas fa-home"></i>
-                                    <span>Free Site Visit</span>
-                                </div>
-                                <div class="feature">
-                                    <i class="fas fa-tools"></i>
-                                    <span>Expert Installation</span>
-                                </div>
-                                <div class="feature">
-                                    <i class="fas fa-shield-alt"></i>
-                                    <span>Warranty Included</span>
+                            <div class="col-12">
+                                <div id="modalEstimationResult" class="alert alert-info" style="display: none;">
+                                    <!-- Result will be shown here -->
                                 </div>
                             </div>
+
+                            <div class="col-12">
+                                <div class="d-flex gap-2">
+                                    <button type="button" class="btn btn-primary flex-fill" onclick="calculateModalEstimation()">
+                                        <i class="fas fa-calculator"></i> Calculate Estimation
+                                    </button>
+                                    <button type="button" class="btn btn-outline-secondary" onclick="resetModalToService()">
+                                        <i class="fas fa-arrow-left"></i> Back
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="col-12 mt-3">
+                                <div class="estimation-features">
+                                    <div class="feature">
+                                        <i class="fas fa-home"></i>
+                                        <span>Free Site Visit</span>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-tools"></i>
+                                        <span>Expert Installation</span>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-shield-alt"></i>
+                                        <span>Warranty Included</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             `;
             
             // Update modal title
@@ -1201,50 +1543,16 @@ Please provide more details and schedule a site visit.`;
             window.location.href = "tel:+919642661602";
         }
 
-        // Calculate estimation in main form
-        function calculateEstimation() {
-            const serviceType = document.getElementById('serviceType').value;
-            const width = parseFloat(document.getElementById('width').value) || 0;
-            const height = parseFloat(document.getElementById('height').value) || 0;
-            const quantity = parseInt(document.getElementById('quantity').value) || 0;
-            
-            if (!serviceType || width <= 0 || height <= 0 || quantity <= 0) {
-                alert('Please fill all required fields with valid values.');
-                return;
-            }
-            
-            // Price per sqft for each service
-            const prices = {
-                mesh: 250,
-                invisible: 190,
-                aluminium: 380,
-                upvc: 350,
-                led: 550,
-                shower: 350,
-                kitchen: 440,
-                hanger: 2600 // per piece
-            };
-            
-            let totalCost;
-            if (serviceType === 'hanger') {
-                // For cloth hangers, price is per piece
-                totalCost = prices[serviceType] * quantity;
-            } else {
-                // For other services, calculate based on area
-                const area = width * height;
-                totalCost = prices[serviceType] * area * quantity;
-            }
-            
-            // Display result
-            const resultDiv = document.getElementById('estimationResult');
-            resultDiv.innerHTML = `
-                <h4 class="text-success">₹${totalCost.toLocaleString()}</h4>
-                <p class="mb-1"><strong>Service:</strong> ${document.getElementById('serviceType').options[document.getElementById('serviceType').selectedIndex].text.split(' - ')[0]}</p>
-                <p class="mb-1"><strong>Area:</strong> ${width}ft × ${height}ft = ${(width * height).toFixed(2)} sqft</p>
-                <p class="mb-0"><strong>Quantity:</strong> ${quantity}</p>
-                <hr>
-                <p class="small mb-0">This is an approximate estimation. Contact us for exact pricing after site visit.</p>
-            `;
+        // Show customer form modal (for main estimation section)
+        function showCustomerForm() {
+            const customerModal = new bootstrap.Modal(document.getElementById('customerFormModal'));
+            customerModal.show();
+        }
+
+        // Update addons (placeholder function)
+        function updateAddons() {
+            // This function would update addons based on service selection
+            // Keeping it as a placeholder for your existing functionality
         }
 
         // Handle form submissions
@@ -1255,7 +1563,30 @@ Please provide more details and schedule a site visit.`;
                 alert('Thank you for your message! We will contact you soon.');
                 this.reset();
             });
+
+            // Customer estimation form
+            document.getElementById('customerEstimationForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Thank you for your estimation request! We will contact you soon.');
+                const modal = bootstrap.Modal.getInstance(document.getElementById('customerFormModal'));
+                modal.hide();
+            });
         });
+
+        // Image modal function
+        function openImageModal(src) {
+            document.getElementById('modalImage').src = src;
+            const imageModal = new bootstrap.Modal(document.getElementById('imageModal'));
+            imageModal.show();
+        }
+
+        // Video modal function
+        function openVideoModal(title, src) {
+            document.getElementById('videoModalTitle').textContent = title;
+            document.getElementById('modalVideo').src = src;
+            const videoModal = new bootstrap.Modal(document.getElementById('videoModal'));
+            videoModal.show();
+        }
     </script>
 </body>
 </html>
