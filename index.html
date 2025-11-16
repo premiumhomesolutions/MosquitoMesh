@@ -443,6 +443,23 @@
             margin-bottom: 20px;
         }
         
+        /* Contract Form Styles */
+        .contract-form-section {
+            padding: 30px 0;
+        }
+        
+        .contract-summary {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .contract-summary h5 {
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
         /* Responsive */
         @media (max-width: 768px) {
             .hero-title {
@@ -514,7 +531,7 @@
                         </div>
                     </div>
                     <div class="hero-buttons">
-                        <button class="btn btn-primary btn-lg" onclick="scrollToEstimator()">
+                        <button class="btn btn-primary btn-lg" onclick="openEstimationModal()">
                             <i class="fas fa-calculator"></i> Get Free Estimation
                         </button>
                         <button class="btn btn-outline-light btn-lg" onclick="openWhatsApp()">
@@ -893,7 +910,7 @@
                                 </div>
 
                                 <div class="col-12">
-                                    <button type="button" class="btn btn-primary btn-lg" onclick="showCustomerForm()">
+                                    <button type="button" class="btn btn-primary btn-lg" onclick="calculateEstimation()">
                                         <i class="fas fa-calculator"></i> Calculate Estimation
                                     </button>
                                 </div>
@@ -993,7 +1010,7 @@
                                 <li>UPVC Windows: 3-5 days</li>
                                 <li>LED Mirrors: 1 day</li>
                             </ul>
-                            <button class="btn btn-primary mt-2" onclick="scrollToEstimator()">Get Free Estimation</button>
+                            <button class="btn btn-primary mt-2" onclick="openEstimationModal()">Get Free Estimation</button>
                         </div>
                     </div>
                 </div>
@@ -1051,7 +1068,7 @@
                                 <li><strong>Telangana:</strong> Hyderabad, Secunderabad, Gachibowli, HITEC City, Kukatpally, Miyapur, and all surrounding areas</li>
                                 <li><strong>Andhra Pradesh:</strong> Vishakapatnam, Vijayawada, Guntur, Tirupati, Kurnool, and all major cities</li>
                             </ul>
-                            <button class="btn btn-primary mt-2" onclick="scrollToEstimator()">Check Service in Your Area</button>
+                            <button class="btn btn-primary mt-2" onclick="openEstimationModal()">Check Service in Your Area</button>
                         </div>
                     </div>
                 </div>
@@ -1162,34 +1179,142 @@
         </div>
     </div>
 
-    <!-- Customer Form Modal -->
-    <div class="modal fade" id="customerFormModal" tabindex="-1">
-        <div class="modal-dialog">
+    <!-- Estimation Modal -->
+    <div class="modal fade" id="estimationModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Get Your Estimation</h5>
+                    <h5 class="modal-title">Get Your Free Estimation</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="customerEstimationForm">
-                        <div class="mb-3">
-                            <label class="form-label">Your Name *</label>
-                            <input type="text" class="form-control" id="estimationName" required>
+                    <div class="estimation-modal-content">
+                        <p>Fill in the details below to get an instant cost estimation</p>
+                        
+                        <form id="modalEstimationForm">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Select Service *</label>
+                                    <select class="form-select" id="modalServiceType" required onchange="updateModalAddons()">
+                                        <option value="">Choose Service</option>
+                                        <option value="mesh">Mosquito Mesh Doors - ₹250/sqft</option>
+                                        <option value="invisible">Invisible Grills - ₹190/sqft</option>
+                                        <option value="aluminium">Aluminium Windows - ₹380/sqft</option>
+                                        <option value="upvc">UPVC Windows - ₹350/sqft</option>
+                                        <option value="led">LED Mirrors - ₹550/sqft</option>
+                                        <option value="shower">Shower Partitions - ₹350/sqft</option>
+                                        <option value="kitchen">Aluminium Kitchen Profile - ₹440/sqft</option>
+                                        <option value="hanger">Cloth Hanger - ₹2600/piece</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Property Type *</label>
+                                    <select class="form-select" id="modalPropertyType" required>
+                                        <option value="">Choose Type</option>
+                                        <option value="apartment">Apartment</option>
+                                        <option value="villa">Villa</option>
+                                        <option value="office">Office</option>
+                                        <option value="commercial">Commercial</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="col-md-4">
+                                    <label class="form-label">Width (feet) *</label>
+                                    <input type="number" class="form-control" id="modalWidth" placeholder="e.g., 6" min="1" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">Height (feet) *</label>
+                                    <input type="number" class="form-control" id="modalHeight" placeholder="e.g., 7" min="1" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">Quantity *</label>
+                                    <input type="number" class="form-control" id="modalQuantity" placeholder="e.g., 2" min="1" required>
+                                </div>
+
+                                <div class="col-12">
+                                    <div id="modalEstimationResult" class="alert alert-info" style="display: none;">
+                                        <!-- Result will be shown here -->
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="d-flex gap-2">
+                                        <button type="button" class="btn btn-primary flex-fill" onclick="calculateModalEstimation()">
+                                            <i class="fas fa-calculator"></i> Calculate Estimation
+                                        </button>
+                                        <button type="button" class="btn btn-outline-secondary" onclick="resetModalToService()" id="backToServiceBtn" style="display: none;">
+                                            <i class="fas fa-arrow-left"></i> Back
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 mt-3">
+                                    <div class="estimation-features">
+                                        <div class="feature">
+                                            <i class="fas fa-home"></i>
+                                            <span>Free Site Visit</span>
+                                        </div>
+                                        <div class="feature">
+                                            <i class="fas fa-tools"></i>
+                                            <span>Expert Installation</span>
+                                        </div>
+                                        <div class="feature">
+                                            <i class="fas fa-shield-alt"></i>
+                                            <span>Warranty Included</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contract Form Modal -->
+    <div class="modal fade" id="contractFormModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Submit Your Request</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="contract-form-section">
+                        <div class="contract-summary" id="contractSummary">
+                            <!-- Estimation summary will be displayed here -->
                         </div>
-                        <div class="mb-3">
-                            <label class="form-label">Phone Number *</label>
-                            <input type="tel" class="form-control" id="estimationPhone" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Email</label>
-                            <input type="email" class="form-control" id="estimationEmail">
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Location *</label>
-                            <input type="text" class="form-control" id="estimationLocation" placeholder="e.g., Gachibowli, Hyderabad" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary w-100">Get My Estimation</button>
-                    </form>
+                        <form id="contractForm">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Your Name *</label>
+                                    <input type="text" class="form-control" id="contractName" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Phone Number *</label>
+                                    <input type="tel" class="form-control" id="contractPhone" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Email</label>
+                                    <input type="email" class="form-control" id="contractEmail">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Location *</label>
+                                    <input type="text" class="form-control" id="contractLocation" placeholder="e.g., Gachibowli, Hyderabad" required>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">Additional Notes (Optional)</label>
+                                    <textarea class="form-control" id="contractNotes" rows="3" placeholder="Any specific requirements or questions..."></textarea>
+                                </div>
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-success w-100">
+                                        <i class="fab fa-whatsapp"></i> Submit Request via WhatsApp
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1240,6 +1365,17 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        // Global variables to store estimation data
+        let currentEstimation = {
+            serviceType: '',
+            serviceTitle: '',
+            width: 0,
+            height: 0,
+            quantity: 0,
+            totalCost: 0,
+            propertyType: ''
+        };
+
         // Service data for modals
         const serviceData = {
             mesh: {
@@ -1316,12 +1452,9 @@
             }
         };
 
-        // Track current service type for estimation
-        let currentServiceType = '';
-
         // Open service modal with details
         function openServiceModal(serviceType) {
-            currentServiceType = serviceType;
+            currentEstimation.serviceType = serviceType;
             const service = serviceData[serviceType];
             if (!service) return;
             
@@ -1376,119 +1509,39 @@
 
         // Transform service modal to estimation modal
         function transformToEstimationModal() {
-            const service = serviceData[currentServiceType];
+            const service = serviceData[currentEstimation.serviceType];
             if (!service) return;
             
-            const modalContent = document.getElementById('serviceModalContent');
-            modalContent.innerHTML = `
-                <div class="estimation-modal-content">
-                    <h4 class="estimation-modal-title">Get Your Estimation for ${service.title}</h4>
-                    <p>Fill in the details below to get an instant cost estimation</p>
-                    
-                    <form id="modalEstimationForm">
-                        <div class="row g-3">
-                            <div class="col-md-6">
-                                <label class="form-label">Select Service *</label>
-                                <select class="form-select" id="modalServiceType" required onchange="updateModalAddons()">
-                                    <option value="${currentServiceType}" selected>${service.title} - ${service.price}</option>
-                                    <option value="mesh">Mosquito Mesh Doors - ₹250/sqft</option>
-                                    <option value="invisible">Invisible Grills - ₹190/sqft</option>
-                                    <option value="aluminium">Aluminium Windows - ₹380/sqft</option>
-                                    <option value="upvc">UPVC Windows - ₹350/sqft</option>
-                                    <option value="led">LED Mirrors - ₹550/sqft</option>
-                                    <option value="shower">Shower Partitions - ₹350/sqft</option>
-                                    <option value="kitchen">Aluminium Kitchen Profile - ₹440/sqft</option>
-                                    <option value="hanger">Cloth Hanger - ₹2600/piece</option>
-                                </select>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label">Property Type *</label>
-                                <select class="form-select" id="modalPropertyType" required>
-                                    <option value="">Choose Type</option>
-                                    <option value="apartment">Apartment</option>
-                                    <option value="villa">Villa</option>
-                                    <option value="office">Office</option>
-                                    <option value="commercial">Commercial</option>
-                                </select>
-                            </div>
-                            
-                            <div class="col-md-4">
-                                <label class="form-label">Width (feet) *</label>
-                                <input type="number" class="form-control" id="modalWidth" placeholder="e.g., 6" min="1" required>
-                            </div>
-                            <div class="col-md-4">
-                                <label class="form-label">Height (feet) *</label>
-                                <input type="number" class="form-control" id="modalHeight" placeholder="e.g., 7" min="1" required>
-                            </div>
-                            <div class="col-md-4">
-                                <label class="form-label">Quantity *</label>
-                                <input type="number" class="form-control" id="modalQuantity" placeholder="e.g., 2" min="1" required>
-                            </div>
-
-                            <!-- Dynamic Addons Section -->
-                            <div class="col-12" id="modalAddonsSection" style="display: none;">
-                                <label class="form-label">Premium Features (Optional)</label>
-                                <div id="modalAddonsContainer"></div>
-                            </div>
-
-                            <div class="col-12">
-                                <div id="modalEstimationResult" class="alert alert-info" style="display: none;">
-                                    <!-- Result will be shown here -->
-                                </div>
-                            </div>
-
-                            <div class="col-12">
-                                <div class="d-flex gap-2">
-                                    <button type="button" class="btn btn-primary flex-fill" onclick="calculateModalEstimation()">
-                                        <i class="fas fa-calculator"></i> Calculate Estimation
-                                    </button>
-                                    <button type="button" class="btn btn-outline-secondary" onclick="resetModalToService()">
-                                        <i class="fas fa-arrow-left"></i> Back
-                                    </button>
-                                </div>
-                            </div>
-
-                            <div class="col-12 mt-3">
-                                <div class="estimation-features">
-                                    <div class="feature">
-                                        <i class="fas fa-home"></i>
-                                        <span>Free Site Visit</span>
-                                    </div>
-                                    <div class="feature">
-                                        <i class="fas fa-tools"></i>
-                                        <span>Expert Installation</span>
-                                    </div>
-                                    <div class="feature">
-                                        <i class="fas fa-shield-alt"></i>
-                                        <span>Warranty Included</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            `;
+            // Close service modal
+            const serviceModal = bootstrap.Modal.getInstance(document.getElementById('serviceModal'));
+            serviceModal.hide();
             
-            // Update modal title
-            document.getElementById('serviceModalTitle').textContent = `Get Estimation - ${service.title}`;
-            
-            // Initialize addons for the modal
-            updateModalAddons();
+            // Open estimation modal with pre-selected service
+            openEstimationModal(currentEstimation.serviceType);
         }
 
-        // Update addons for modal estimation
-        function updateModalAddons() {
-            const serviceType = document.getElementById('modalServiceType').value;
-            const addonsSection = document.getElementById('modalAddonsSection');
-            const addonsContainer = document.getElementById('modalAddonsContainer');
+        // Open estimation modal (from home page or service modal)
+        function openEstimationModal(serviceType = '') {
+            const modal = new bootstrap.Modal(document.getElementById('estimationModal'));
             
-            // For now, we'll keep addons section hidden as in the original
-            addonsSection.style.display = 'none';
-        }
-
-        // Reset modal back to service view
-        function resetModalToService() {
-            openServiceModal(currentServiceType);
+            // Pre-select service if provided
+            if (serviceType) {
+                document.getElementById('modalServiceType').value = serviceType;
+                currentEstimation.serviceType = serviceType;
+            } else {
+                document.getElementById('modalServiceType').value = '';
+                currentEstimation.serviceType = '';
+            }
+            
+            // Reset form
+            document.getElementById('modalPropertyType').value = '';
+            document.getElementById('modalWidth').value = '';
+            document.getElementById('modalHeight').value = '';
+            document.getElementById('modalQuantity').value = '';
+            document.getElementById('modalEstimationResult').style.display = 'none';
+            
+            // Show the modal
+            modal.show();
         }
 
         // Calculate estimation in modal
@@ -1497,8 +1550,9 @@
             const width = parseFloat(document.getElementById('modalWidth').value) || 0;
             const height = parseFloat(document.getElementById('modalHeight').value) || 0;
             const quantity = parseInt(document.getElementById('modalQuantity').value) || 0;
+            const propertyType = document.getElementById('modalPropertyType').value;
             
-            if (!serviceType || width <= 0 || height <= 0 || quantity <= 0) {
+            if (!serviceType || width <= 0 || height <= 0 || quantity <= 0 || !propertyType) {
                 alert('Please fill all required fields with valid values.');
                 return;
             }
@@ -1525,51 +1579,163 @@
                 totalCost = prices[serviceType] * area * quantity;
             }
             
+            // Store estimation data
+            currentEstimation.serviceType = serviceType;
+            currentEstimation.serviceTitle = document.getElementById('modalServiceType').options[document.getElementById('modalServiceType').selectedIndex].text.split(' - ')[0];
+            currentEstimation.width = width;
+            currentEstimation.height = height;
+            currentEstimation.quantity = quantity;
+            currentEstimation.totalCost = totalCost;
+            currentEstimation.propertyType = propertyType;
+            
             // Display result
             const resultDiv = document.getElementById('modalEstimationResult');
             resultDiv.innerHTML = `
                 <h5 class="text-success">Estimated Cost: ₹${totalCost.toLocaleString()}</h5>
-                <p class="mb-1"><strong>Service:</strong> ${document.getElementById('modalServiceType').options[document.getElementById('modalServiceType').selectedIndex].text.split(' - ')[0]}</p>
+                <p class="mb-1"><strong>Service:</strong> ${currentEstimation.serviceTitle}</p>
+                <p class="mb-1"><strong>Property Type:</strong> ${propertyType}</p>
                 <p class="mb-1"><strong>Area:</strong> ${width}ft × ${height}ft = ${(width * height).toFixed(2)} sqft</p>
                 <p class="mb-0"><strong>Quantity:</strong> ${quantity}</p>
                 <hr>
                 <p class="small mb-0">This is an approximate estimation. Contact us for exact pricing after site visit.</p>
                 <div class="mt-2">
-                    <button class="btn btn-success btn-sm" onclick="openWhatsAppWithEstimation(${totalCost})">
-                        <i class="fab fa-whatsapp"></i> Share on WhatsApp
+                    <button class="btn btn-success btn-sm" onclick="openContractForm()">
+                        <i class="fas fa-paper-plane"></i> Submit Request
                     </button>
                 </div>
             `;
             resultDiv.style.display = 'block';
         }
 
-        // Open WhatsApp with estimation details
-        function openWhatsAppWithEstimation(totalCost) {
-            const serviceType = document.getElementById('modalServiceType').value;
-            const service = serviceData[serviceType];
-            const width = parseFloat(document.getElementById('modalWidth').value) || 0;
-            const height = parseFloat(document.getElementById('modalHeight').value) || 0;
-            const quantity = parseInt(document.getElementById('modalQuantity').value) || 0;
+        // Open contract form modal
+        function openContractForm() {
+            // Close estimation modal
+            const estimationModal = bootstrap.Modal.getInstance(document.getElementById('estimationModal'));
+            estimationModal.hide();
             
-            const phoneNumber = "919642661602";
-            const message = `Hi, I'm interested in ${service.title}. My estimation details:
-- Service: ${service.title}
-- Dimensions: ${width}ft × ${height}ft
-- Quantity: ${quantity}
-- Estimated Cost: ₹${totalCost.toLocaleString()}
-
-Please provide more details and schedule a site visit.`;
+            // Update contract summary
+            const summaryDiv = document.getElementById('contractSummary');
+            summaryDiv.innerHTML = `
+                <h5>Estimation Summary</h5>
+                <p class="mb-1"><strong>Service:</strong> ${currentEstimation.serviceTitle}</p>
+                <p class="mb-1"><strong>Property Type:</strong> ${currentEstimation.propertyType}</p>
+                <p class="mb-1"><strong>Dimensions:</strong> ${currentEstimation.width}ft × ${currentEstimation.height}ft</p>
+                <p class="mb-1"><strong>Quantity:</strong> ${currentEstimation.quantity}</p>
+                <h6 class="text-success mt-2">Estimated Cost: ₹${currentEstimation.totalCost.toLocaleString()}</h6>
+            `;
             
-            const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-            window.open(url, '_blank');
+            // Show contract form modal
+            const contractModal = new bootstrap.Modal(document.getElementById('contractFormModal'));
+            contractModal.show();
         }
 
-        // Scroll to estimator section
-        function scrollToEstimator() {
-            document.getElementById('estimator').scrollIntoView({ 
-                behavior: 'smooth',
-                block: 'start'
-            });
+        // Submit contract form
+        function submitContractForm(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('contractName').value;
+            const phone = document.getElementById('contractPhone').value;
+            const email = document.getElementById('contractEmail').value;
+            const location = document.getElementById('contractLocation').value;
+            const notes = document.getElementById('contractNotes').value;
+            
+            if (!name || !phone || !location) {
+                alert('Please fill all required fields.');
+                return;
+            }
+            
+            // Create WhatsApp message
+            const message = `Hi, I would like to submit a request for ${currentEstimation.serviceTitle}.
+
+Estimation Details:
+- Service: ${currentEstimation.serviceTitle}
+- Property Type: ${currentEstimation.propertyType}
+- Dimensions: ${currentEstimation.width}ft × ${currentEstimation.height}ft
+- Quantity: ${currentEstimation.quantity}
+- Estimated Cost: ₹${currentEstimation.totalCost.toLocaleString()}
+
+My Details:
+- Name: ${name}
+- Phone: ${phone}
+- Email: ${email || 'Not provided'}
+- Location: ${location}
+- Additional Notes: ${notes || 'None'}
+
+Please contact me to schedule a site visit and provide exact pricing.`;
+            
+            // Open WhatsApp with the message
+            const phoneNumber = "919642661602";
+            const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank');
+            
+            // Close modal
+            const contractModal = bootstrap.Modal.getInstance(document.getElementById('contractFormModal'));
+            contractModal.hide();
+            
+            // Reset form
+            document.getElementById('contractForm').reset();
+        }
+
+        // Calculate estimation in main section
+        function calculateEstimation() {
+            const serviceType = document.getElementById('serviceType').value;
+            const width = parseFloat(document.getElementById('width').value) || 0;
+            const height = parseFloat(document.getElementById('height').value) || 0;
+            const quantity = parseInt(document.getElementById('quantity').value) || 0;
+            const propertyType = document.getElementById('propertyType').value;
+            
+            if (!serviceType || width <= 0 || height <= 0 || quantity <= 0 || !propertyType) {
+                alert('Please fill all required fields with valid values.');
+                return;
+            }
+            
+            // Price per sqft for each service
+            const prices = {
+                mesh: 250,
+                invisible: 190,
+                aluminium: 380,
+                upvc: 350,
+                led: 550,
+                shower: 350,
+                kitchen: 440,
+                hanger: 2600 // per piece
+            };
+            
+            let totalCost;
+            if (serviceType === 'hanger') {
+                // For cloth hangers, price is per piece
+                totalCost = prices[serviceType] * quantity;
+            } else {
+                // For other services, calculate based on area
+                const area = width * height;
+                totalCost = prices[serviceType] * area * quantity;
+            }
+            
+            // Store estimation data
+            currentEstimation.serviceType = serviceType;
+            currentEstimation.serviceTitle = document.getElementById('serviceType').options[document.getElementById('serviceType').selectedIndex].text.split(' - ')[0];
+            currentEstimation.width = width;
+            currentEstimation.height = height;
+            currentEstimation.quantity = quantity;
+            currentEstimation.totalCost = totalCost;
+            currentEstimation.propertyType = propertyType;
+            
+            // Display result
+            const resultDiv = document.getElementById('estimationResult');
+            resultDiv.innerHTML = `
+                <h4 class="text-success">₹${totalCost.toLocaleString()}</h4>
+                <p class="mb-1"><strong>Service:</strong> ${currentEstimation.serviceTitle}</p>
+                <p class="mb-1"><strong>Property Type:</strong> ${propertyType}</p>
+                <p class="mb-1"><strong>Area:</strong> ${width}ft × ${height}ft = ${(width * height).toFixed(2)} sqft</p>
+                <p class="mb-0"><strong>Quantity:</strong> ${quantity}</p>
+                <hr>
+                <p class="small mb-0">This is an approximate estimation. Contact us for exact pricing after site visit.</p>
+                <div class="mt-2">
+                    <button class="btn btn-success btn-sm" onclick="openContractForm()">
+                        <i class="fas fa-paper-plane"></i> Submit Request
+                    </button>
+                </div>
+            `;
         }
 
         // Open WhatsApp
@@ -1585,16 +1751,22 @@ Please provide more details and schedule a site visit.`;
             window.location.href = "tel:+919642661602";
         }
 
-        // Show customer form modal (for main estimation section)
-        function showCustomerForm() {
-            const customerModal = new bootstrap.Modal(document.getElementById('customerFormModal'));
-            customerModal.show();
-        }
-
         // Update addons (placeholder function)
         function updateAddons() {
             // This function would update addons based on service selection
             // Keeping it as a placeholder for your existing functionality
+        }
+
+        // Update modal addons
+        function updateModalAddons() {
+            // This function would update addons in modal based on service selection
+            // Keeping it as a placeholder for your existing functionality
+        }
+
+        // Reset modal back to service view
+        function resetModalToService() {
+            const serviceModal = new bootstrap.Modal(document.getElementById('serviceModal'));
+            serviceModal.show();
         }
 
         // Handle form submissions
@@ -1606,13 +1778,8 @@ Please provide more details and schedule a site visit.`;
                 this.reset();
             });
 
-            // Customer estimation form
-            document.getElementById('customerEstimationForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                alert('Thank you for your estimation request! We will contact you soon.');
-                const modal = bootstrap.Modal.getInstance(document.getElementById('customerFormModal'));
-                modal.hide();
-            });
+            // Contract form
+            document.getElementById('contractForm').addEventListener('submit', submitContractForm);
         });
 
         // Image modal function
