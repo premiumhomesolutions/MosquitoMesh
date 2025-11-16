@@ -433,6 +433,16 @@
             margin-top: 25px;
         }
         
+        /* Estimation Modal Styles */
+        .estimation-modal-content {
+            padding: 20px 0;
+        }
+        
+        .estimation-modal-title {
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
         /* Responsive */
         @media (max-width: 768px) {
             .hero-title {
@@ -957,8 +967,12 @@
             }
         };
 
+        // Track current service type for estimation
+        let currentServiceType = '';
+
         // Open service modal with details
         function openServiceModal(serviceType) {
+            currentServiceType = serviceType;
             const service = serviceData[serviceType];
             if (!service) return;
             
@@ -992,7 +1006,7 @@
                 </ul>
                 
                 <div class="service-modal-buttons">
-                    <button class="btn btn-primary" onclick="closeModalAndScrollToEstimator()">
+                    <button class="btn btn-primary" onclick="transformToEstimationModal()">
                         <i class="fas fa-calculator"></i> Get Estimation
                     </button>
                     <button class="btn btn-outline-secondary" onclick="openWhatsApp()">
@@ -1001,19 +1015,169 @@
                 </div>
             `;
             
+            // Update modal title
+            document.getElementById('serviceModalTitle').textContent = `Get Quote - ${service.title}`;
+            
             // Show the modal
             const modal = new bootstrap.Modal(document.getElementById('serviceModal'));
             modal.show();
         }
 
-        // Close modal and scroll to estimator
-        function closeModalAndScrollToEstimator() {
-            // Close the modal
-            const modal = bootstrap.Modal.getInstance(document.getElementById('serviceModal'));
-            modal.hide();
+        // Transform service modal to estimation modal
+        function transformToEstimationModal() {
+            const service = serviceData[currentServiceType];
+            if (!service) return;
             
-            // Scroll to estimator section
-            scrollToEstimator();
+            const modalContent = document.getElementById('serviceModalContent');
+            modalContent.innerHTML = `
+                <h4 class="estimation-modal-title">Get Your Estimation for ${service.title}</h4>
+                <p>Fill in the details below to get an instant cost estimation</p>
+                
+                <form id="modalEstimationForm">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Property Type *</label>
+                            <select class="form-select" id="modalPropertyType" required>
+                                <option value="">Choose Type</option>
+                                <option value="apartment">Apartment</option>
+                                <option value="villa">Villa</option>
+                                <option value="office">Office</option>
+                                <option value="commercial">Commercial</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Service</label>
+                            <input type="text" class="form-control" value="${service.title}" readonly>
+                        </div>
+                        
+                        <div class="col-md-4">
+                            <label class="form-label">Width (feet) *</label>
+                            <input type="number" class="form-control" id="modalWidth" placeholder="e.g., 6" min="1" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Height (feet) *</label>
+                            <input type="number" class="form-control" id="modalHeight" placeholder="e.g., 7" min="1" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Quantity *</label>
+                            <input type="number" class="form-control" id="modalQuantity" placeholder="e.g., 2" min="1" required>
+                        </div>
+
+                        <div class="col-12">
+                            <div id="modalEstimationResult" class="alert alert-info" style="display: none;">
+                                <!-- Result will be shown here -->
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="d-flex gap-2">
+                                <button type="button" class="btn btn-primary flex-fill" onclick="calculateModalEstimation()">
+                                    <i class="fas fa-calculator"></i> Calculate Estimation
+                                </button>
+                                <button type="button" class="btn btn-outline-secondary" onclick="resetModalToService()">
+                                    <i class="fas fa-arrow-left"></i> Back
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="col-12 mt-3">
+                            <div class="estimation-features">
+                                <div class="feature">
+                                    <i class="fas fa-home"></i>
+                                    <span>Free Site Visit</span>
+                                </div>
+                                <div class="feature">
+                                    <i class="fas fa-tools"></i>
+                                    <span>Expert Installation</span>
+                                </div>
+                                <div class="feature">
+                                    <i class="fas fa-shield-alt"></i>
+                                    <span>Warranty Included</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            `;
+            
+            // Update modal title
+            document.getElementById('serviceModalTitle').textContent = `Get Estimation - ${service.title}`;
+        }
+
+        // Reset modal back to service view
+        function resetModalToService() {
+            openServiceModal(currentServiceType);
+        }
+
+        // Calculate estimation in modal
+        function calculateModalEstimation() {
+            const width = parseFloat(document.getElementById('modalWidth').value) || 0;
+            const height = parseFloat(document.getElementById('modalHeight').value) || 0;
+            const quantity = parseInt(document.getElementById('modalQuantity').value) || 0;
+            
+            if (!currentServiceType || width <= 0 || height <= 0 || quantity <= 0) {
+                alert('Please fill all required fields with valid values.');
+                return;
+            }
+            
+            // Price per sqft for each service
+            const prices = {
+                mesh: 250,
+                invisible: 190,
+                aluminium: 380,
+                upvc: 350,
+                led: 550,
+                shower: 350,
+                kitchen: 440,
+                hanger: 2600 // per piece
+            };
+            
+            let totalCost;
+            if (currentServiceType === 'hanger') {
+                // For cloth hangers, price is per piece
+                totalCost = prices[currentServiceType] * quantity;
+            } else {
+                // For other services, calculate based on area
+                const area = width * height;
+                totalCost = prices[currentServiceType] * area * quantity;
+            }
+            
+            // Display result
+            const resultDiv = document.getElementById('modalEstimationResult');
+            resultDiv.innerHTML = `
+                <h5 class="text-success">Estimated Cost: ₹${totalCost.toLocaleString()}</h5>
+                <p class="mb-1"><strong>Service:</strong> ${serviceData[currentServiceType].title}</p>
+                <p class="mb-1"><strong>Area:</strong> ${width}ft × ${height}ft = ${(width * height).toFixed(2)} sqft</p>
+                <p class="mb-0"><strong>Quantity:</strong> ${quantity}</p>
+                <hr>
+                <p class="small mb-0">This is an approximate estimation. Contact us for exact pricing after site visit.</p>
+                <div class="mt-2">
+                    <button class="btn btn-success btn-sm" onclick="openWhatsAppWithEstimation(${totalCost})">
+                        <i class="fab fa-whatsapp"></i> Share on WhatsApp
+                    </button>
+                </div>
+            `;
+            resultDiv.style.display = 'block';
+        }
+
+        // Open WhatsApp with estimation details
+        function openWhatsAppWithEstimation(totalCost) {
+            const service = serviceData[currentServiceType];
+            const width = parseFloat(document.getElementById('modalWidth').value) || 0;
+            const height = parseFloat(document.getElementById('modalHeight').value) || 0;
+            const quantity = parseInt(document.getElementById('modalQuantity').value) || 0;
+            
+            const phoneNumber = "919642661602";
+            const message = `Hi, I'm interested in ${service.title}. My estimation details:
+- Service: ${service.title}
+- Dimensions: ${width}ft × ${height}ft
+- Quantity: ${quantity}
+- Estimated Cost: ₹${totalCost.toLocaleString()}
+
+Please provide more details and schedule a site visit.`;
+            
+            const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank');
         }
 
         // Scroll to estimator section
@@ -1037,7 +1201,7 @@
             window.location.href = "tel:+919642661602";
         }
 
-        // Calculate estimation
+        // Calculate estimation in main form
         function calculateEstimation() {
             const serviceType = document.getElementById('serviceType').value;
             const width = parseFloat(document.getElementById('width').value) || 0;
