@@ -3,9 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Premium Home Solution</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta name="description" content="Hyderabad's Premier Mosquito Mesh Doors, Invisible Grills, UPVC Windows & LED Mirrors. Free Site Visit & Estimation. Servicing Telangana & Andhra Pradesh">
+    <meta name="keywords" content="mosquito mesh hyderabad, invisible grill balcony hyderabad, UPVC windows Hyderabad, aluminium windows hyderabad, LED mirror hyderabad">
+    <title>Premium Home Solutions | Mosquito Mesh Doors & Windows Hyderabad</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+        :root {
+            --primary: #1a365d;
+            --secondary: #2d3748;
+            --accent: #e53e3e;
+            --light: #f7fafc;
+            --border: #e2e8f0;
+        }
+        
         * {
             margin: 0;
             padding: 0;
@@ -14,493 +25,894 @@
         }
         
         body {
-            background-color: #f5f7fa;
-            color: #333;
+            background-color: #f8f9fa;
+            color: var(--secondary);
             line-height: 1.6;
         }
         
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
+        .navbar {
+            background: linear-gradient(135deg, var(--primary), #2a4365);
         }
         
-        header {
-            text-align: center;
-            padding: 30px 0;
-            background: linear-gradient(135deg, #1a3a5f, #2c5282);
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary), #2a4365);
             color: white;
-            border-radius: 10px;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-        
-        header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            font-weight: 700;
-        }
-        
-        header p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-        }
-        
-        .content {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 30px;
-            margin-bottom: 40px;
-        }
-        
-        .features {
-            flex: 1;
-            min-width: 300px;
-            background: white;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-        }
-        
-        .features h2 {
-            color: #2c5282;
-            margin-bottom: 20px;
-            font-size: 1.8rem;
-            border-bottom: 2px solid #e2e8f0;
-            padding-bottom: 10px;
-        }
-        
-        .features ul {
-            list-style-type: none;
-        }
-        
-        .features li {
-            padding: 12px 0;
-            border-bottom: 1px solid #f1f5f9;
+            padding: 120px 0 80px;
+            min-height: 100vh;
             display: flex;
             align-items: center;
         }
         
-        .features li:last-child {
-            border-bottom: none;
-        }
-        
-        .features i {
-            color: #2c5282;
-            margin-right: 12px;
-            font-size: 1.2rem;
-        }
-        
-        .form-container {
-            flex: 1;
-            min-width: 300px;
-            background: white;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-        }
-        
-        .form-container h2 {
-            color: #2c5282;
-            margin-bottom: 20px;
-            font-size: 1.8rem;
-            border-bottom: 2px solid #e2e8f0;
-            padding-bottom: 10px;
-        }
-        
-        .form-group {
-            margin-bottom: 20px;
-        }
-        
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #4a5568;
-        }
-        
-        select, input {
-            width: 100%;
-            padding: 12px 15px;
-            border: 1px solid #e2e8f0;
-            border-radius: 6px;
-            font-size: 1rem;
-            transition: all 0.3s;
-        }
-        
-        select:focus, input:focus {
-            outline: none;
-            border-color: #2c5282;
-            box-shadow: 0 0 0 3px rgba(44, 82, 130, 0.1);
-        }
-        
-        .dimensions {
-            display: flex;
-            gap: 15px;
-        }
-        
-        .dimensions .form-group {
-            flex: 1;
-        }
-        
-        .cost-summary {
-            background: #f8fafc;
-            padding: 20px;
-            border-radius: 8px;
-            margin: 25px 0;
-            border-left: 4px solid #2c5282;
-        }
-        
-        .cost-summary h3 {
-            color: #2c5282;
-            margin-bottom: 15px;
-        }
-        
-        .cost-summary p {
-            margin-bottom: 8px;
-            display: flex;
-            justify-content: space-between;
-        }
-        
-        .cost-summary .total {
-            font-weight: 700;
-            font-size: 1.3rem;
-            color: #1a365d;
-            margin-top: 10px;
-            padding-top: 10px;
-            border-top: 1px solid #e2e8f0;
-        }
-        
-        .btn {
-            display: block;
-            width: 100%;
-            padding: 14px;
-            background: #2c5282;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
             text-align: center;
-            text-decoration: none;
+            font-weight: 700;
         }
         
-        .btn:hover {
-            background: #1a365d;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        }
-        
-        .btn-whatsapp {
-            background: #25D366;
-            margin-top: 15px;
-        }
-        
-        .btn-whatsapp:hover {
-            background: #128C7E;
-        }
-        
-        .services {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            margin: 30px 0;
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--secondary);
+            text-align: center;
+            margin-bottom: 3rem;
         }
         
         .service-card {
-            flex: 1;
-            min-width: 200px;
             background: white;
-            padding: 20px;
-            border-radius: 8px;
-            text-align: center;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
-            transition: transform 0.3s;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            margin-bottom: 30px;
+            height: 100%;
         }
         
         .service-card:hover {
             transform: translateY(-5px);
         }
         
-        .service-card i {
-            font-size: 2.5rem;
-            color: #2c5282;
-            margin-bottom: 15px;
+        .service-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
         }
         
-        .service-card h3 {
-            color: #2c5282;
-            margin-bottom: 10px;
-        }
-        
-        footer {
-            text-align: center;
+        .service-content {
             padding: 20px;
-            margin-top: 40px;
-            color: #718096;
-            border-top: 1px solid #e2e8f0;
         }
         
-        .checkbox-group {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
+        .estimator-section {
+            padding: 80px 0;
+            background: var(--light);
+        }
+        
+        .estimator-card, .result-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-bottom: 20px;
+        }
+        
+        .estimation-result {
+            background: var(--light);
+            padding: 20px;
+            border-radius: 8px;
             margin: 20px 0;
         }
         
-        .checkbox-item {
+        .cost-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px dashed var(--border);
+        }
+        
+        .cost-total {
+            font-weight: 700;
+            font-size: 1.3rem;
+            color: var(--accent);
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 2px solid var(--border);
+        }
+        
+        .whatsapp-btn {
+            background: #25D366;
+            border: none;
+            color: white;
             display: flex;
             align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            padding: 12px;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: all 0.3s ease;
         }
         
-        .checkbox-item input {
-            width: auto;
-            margin-right: 10px;
+        .whatsapp-btn:hover {
+            background: #128C7E;
+            transform: translateY(-2px);
         }
         
-        .notification {
+        .whatsapp-float {
             position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 15px 25px;
+            bottom: 25px;
+            right: 25px;
             background: #25D366;
             color: white;
-            border-radius: 6px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            display: none;
+            border-radius: 50px;
+            padding: 12px 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .whatsapp-float:hover {
+            background: #128C7E;
+            transform: scale(1.05);
+        }
+        
+        .phone-float {
+            position: fixed;
+            bottom: 90px;
+            right: 25px;
+            background: var(--accent);
+            color: white;
+            border-radius: 50px;
+            padding: 12px 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .phone-float:hover {
+            background: #c53030;
+            transform: scale(1.05);
+        }
+        
+        .testimonials-section {
+            padding: 80px 0;
+        }
+        
+        .testimonial-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            height: 100%;
+        }
+        
+        .faq-section {
+            padding: 80px 0;
+            background: var(--light);
+        }
+        
+        .contact-section {
+            padding: 80px 0;
+        }
+        
+        .contact-info {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+        
+        .contact-form {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            gap: 15px;
+        }
+        
+        .contact-item i {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+        
+        footer {
+            background: var(--primary);
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+        }
+        
+        .image-container {
+            position: relative;
+        }
+        
+        .view-video-btn {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+        
+        .btn-service {
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 15px;
+            width: 100%;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-service:hover {
+            background: #c53030;
+        }
+        
+        .service-details {
+            margin: 15px 0;
+        }
+        
+        .detail-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+            gap: 8px;
+        }
+        
+        .detail-item i {
+            color: var(--accent);
+        }
+        
+        .hero-features {
+            display: flex;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
         }
         
         @media (max-width: 768px) {
-            .content {
+            .hero-buttons {
                 flex-direction: column;
             }
             
-            .dimensions {
+            .hero-features {
                 flex-direction: column;
-                gap: 0;
+                gap: 10px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Premium Home Solution</h1>
-            <p>Transforming Homes with Premium Aluminium Windows</p>
-        </header>
-        
-        <div class="content">
-            <div class="features">
-                <h2>Aluminium Windows</h2>
-                <p>Durable and stylish aluminium's modern designs and finishes.</p>
-                
-                <ul>
-                    <li><i class="fas fa-shield-alt"></i> 12 Years Warranty</li>
-                    <li><i class="fas fa-star"></i> Premium Aluminium</li>
-                    <li><i class="fas fa-tools"></i> 2-4 Days Installation</li>
-                    <li><i class="fas fa-users"></i> 3-4 Expert Laborers</li>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-home me-2"></i>
+                Premium Home Solutions
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#estimator">Estimation</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#testimonials">Reviews</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#faq">FAQ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
                 </ul>
-                
-                <div class="services">
-                    <div class="service-card">
-                        <i class="fas fa-home"></i>
-                        <h3>Free Estimation</h3>
-                        <p>Get accurate cost estimation for your project</p>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h1 class="hero-title">Premium Home Solutions Across Telangana & Andhra Pradesh</h1>
+                    <p class="hero-subtitle">Mosquito Mesh Doors • Invisible Grills • UPVC Windows • LED Mirrors • Shower Partitions</p>
+                    <div class="hero-features">
+                        <div class="feature-item">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>10 Years Warranty</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-home"></i>
+                            <span>Free Site Visit</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-tools"></i>
+                            <span>Expert Installation</span>
+                        </div>
                     </div>
-                    <div class="service-card">
-                        <i class="fas fa-calendar-check"></i>
-                        <h3>Quick Installation</h3>
-                        <p>Professional installation in 2-4 days</p>
+                    <div class="hero-buttons">
+                        <button class="btn btn-primary btn-lg" onclick="scrollToEstimator()">
+                            <i class="fas fa-calculator"></i> Get Free Estimation
+                        </button>
+                        <button class="btn btn-outline-light btn-lg" onclick="openWhatsApp()">
+                            <i class="fab fa-whatsapp"></i> Chat on WhatsApp
+                        </button>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="hero-image">
+                        <img src="https://via.placeholder.com/600x400" alt="Premium Home Solutions" class="img-fluid rounded">
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services-section">
+        <div class="container">
+            <h2 class="section-title">Our Premium Services</h2>
+            <p class="section-subtitle">Serving Telangana & Andhra Pradesh with Quality and Trust</p>
             
-            <div class="form-container">
-                <h2>Test Your Free Estimation</h2>
-                <p>Fill in the details below to get an instant cost estimation.</p>
-                
-                <form id="estimation-form">
-                    <div class="form-group">
-                        <label for="service">Select Service *</label>
-                        <select id="service" required>
-                            <option value="Aluminium Windows - ₹380/sqft">Aluminium Windows - ₹380/sqft</option>
-                            <option value="UPVC Windows - ₹420/sqft">UPVC Windows - ₹420/sqft</option>
-                            <option value="Wooden Windows - ₹550/sqft">Wooden Windows - ₹550/sqft</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="property-type">Property Type *</label>
-                        <select id="property-type" required>
-                            <option value="Apartment">Apartment</option>
-                            <option value="Villa">Villa</option>
-                            <option value="Office">Office</option>
-                            <option value="Commercial">Commercial</option>
-                        </select>
-                    </div>
-                    
-                    <div class="dimensions">
-                        <div class="form-group">
-                            <label for="width">Width (feet) *</label>
-                            <input type="number" id="width" min="1" step="0.1" required>
+            <div class="row g-4">
+                <!-- Service 1 - Mesh Sliding Doors -->
+                <div class="col-md-4">
+                    <div class="service-card">
+                        <div class="image-container">
+                            <img src="https://via.placeholder.com/400x250" alt="Mosquito Mesh Doors" class="service-img">
                         </div>
-                        
-                        <div class="form-group">
-                            <label for="height">Height (feet) *</label>
-                            <input type="number" id="height" min="1" step="0.1" required>
+                        <div class="service-content">
+                            <h3>Mosquito Mesh Doors</h3>
+                            <p>Anti-mosquito sliding doors for complete protection. Perfect for Hyderabad's climate.</p>
+                            <div class="service-details">
+                                <div class="detail-item">
+                                    <i class="fas fa-shield-alt"></i>
+                                    <span>10 Years Warranty</span>
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fas fa-gem"></i>
+                                    <span>Premium Quality</span>
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fas fa-calendar-day"></i>
+                                    <span>1-2 Days Installation</span>
+                                </div>
+                            </div>
+                            <button class="btn-service" onclick="scrollToEstimator()">
+                                <i class="fas fa-calculator"></i> Get Quote
+                            </button>
                         </div>
                     </div>
-                    
-                    <div class="form-group">
-                        <label for="quantity">Quantity *</label>
-                        <input type="number" id="quantity" min="1" value="4" required>
-                    </div>
-                    
-                    <div class="checkbox-group">
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="free-site-visit">
-                            <label for="free-site-visit">Free Site Visit</label>
+                </div>
+
+                <!-- Service 2 - Invisible Grills -->
+                <div class="col-md-4">
+                    <div class="service-card">
+                        <div class="image-container">
+                            <img src="https://via.placeholder.com/400x250" alt="Invisible Grills" class="service-img">
                         </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="expert-installation" checked>
-                            <label for="expert-installation">Expert Installation</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="warranty-included">
-                            <label for="warranty-included">Warranty Included</label>
+                        <div class="service-content">
+                            <h3>Invisible Grills</h3>
+                            <p>Transparent safety grills for balconies and windows. Uninterrupted views with complete safety.</p>
+                            <div class="service-details">
+                                <div class="detail-item">
+                                    <i class="fas fa-shield-alt"></i>
+                                    <span>15 Years Warranty</span>
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fas fa-gem"></i>
+                                    <span>316 Grade Steel</span>
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fas fa-calendar-day"></i>
+                                    <span>2-3 Days Installation</span>
+                                </div>
+                            </div>
+                            <button class="btn-service" onclick="scrollToEstimator()">
+                                <i class="fas fa-calculator"></i> Get Quote
+                            </button>
                         </div>
                     </div>
-                    
-                    <div class="cost-summary">
-                        <h3>Estimated Cost: <span id="estimated-cost">₹0</span></h3>
-                        <p><strong>Service:</strong> <span id="service-display">-</span></p>
-                        <p><strong>Property Type:</strong> <span id="property-display">-</span></p>
-                        <p><strong>Area:</strong> <span id="area-display">-</span> sqft</p>
-                        <p><strong>Quantity:</strong> <span id="quantity-display">-</span></p>
-                        <p class="total">Total: <span id="total-display">₹0</span></p>
+                </div>
+
+                <!-- Service 3 - UPVC Windows -->
+                <div class="col-md-4">
+                    <div class="service-card">
+                        <div class="image-container">
+                            <img src="https://via.placeholder.com/400x250" alt="UPVC Windows" class="service-img">
+                        </div>
+                        <div class="service-content">
+                            <h3>UPVC Windows</h3>
+                            <p>Energy-efficient UPVC windows with thermal insulation and noise reduction.</p>
+                            <div class="service-details">
+                                <div class="detail-item">
+                                    <i class="fas fa-shield-alt"></i>
+                                    <span>20 Years Warranty</span>
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fas fa-gem"></i>
+                                    <span>German Technology</span>
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fas fa-calendar-day"></i>
+                                    <span>3-5 Days Installation</span>
+                                </div>
+                            </div>
+                            <button class="btn-service" onclick="scrollToEstimator()">
+                                <i class="fas fa-calculator"></i> Get Quote
+                            </button>
+                        </div>
                     </div>
-                    
-                    <p class="note">This is an approximate estimation. Contact us for exact pricing after site visit.</p>
-                    
-                    <button type="button" id="calculate-btn" class="btn">Calculate Estimation</button>
-                    <button type="button" id="whatsapp-btn" class="btn btn-whatsapp">
-                        <i class="fab fa-whatsapp"></i> Submit Request via WhatsApp
-                    </button>
-                </form>
+                </div>
             </div>
         </div>
-        
-        <footer>
-            <p>© 2023 Premium Home Solution. All rights reserved.</p>
-            <p>Contact: +91 98765 43210 | Email: info@premiumhomesolution.com</p>
-        </footer>
-    </div>
-    
-    <div class="notification" id="notification">
-        <i class="fas fa-check-circle"></i> Details copied to WhatsApp!
+    </section>
+
+    <!-- Estimation Calculator -->
+    <section id="estimator" class="estimator-section">
+        <div class="container">
+            <h2 class="section-title">Get Your Free Estimation</h2>
+            <p class="section-subtitle">Calculate approximate cost for your requirements</p>
+            
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="estimator-card">
+                        <form id="estimationForm">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Select Service *</label>
+                                    <select class="form-select" id="serviceType" required onchange="updateServiceDetails()">
+                                        <option value="">Choose Service</option>
+                                        <option value="mesh">Mosquito Mesh Doors - ₹250/sqft</option>
+                                        <option value="invisible">Invisible Grills - ₹190/sqft</option>
+                                        <option value="aluminium">Aluminium Windows - ₹380/sqft</option>
+                                        <option value="upvc">UPVC Windows - ₹350/sqft</option>
+                                        <option value="led">LED Mirrors - ₹550/sqft</option>
+                                        <option value="shower">Shower Partitions - ₹350/sqft</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Property Type *</label>
+                                    <select class="form-select" id="propertyType" required>
+                                        <option value="">Choose Type</option>
+                                        <option value="apartment">Apartment</option>
+                                        <option value="villa">Villa</option>
+                                        <option value="office">Office</option>
+                                        <option value="commercial">Commercial</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="col-md-4">
+                                    <label class="form-label">Width (feet) *</label>
+                                    <input type="number" class="form-control" id="width" placeholder="e.g., 6" min="1" required oninput="updateEstimation()">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">Height (feet) *</label>
+                                    <input type="number" class="form-control" id="height" placeholder="e.g., 7" min="1" required oninput="updateEstimation()">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">Quantity *</label>
+                                    <input type="number" class="form-control" id="quantity" placeholder="e.g., 2" min="1" required oninput="updateEstimation()">
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input" type="checkbox" id="freeSiteVisit" checked>
+                                        <label class="form-check-label" for="freeSiteVisit">
+                                            Free Site Visit
+                                        </label>
+                                    </div>
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input" type="checkbox" id="expertInstallation" checked>
+                                        <label class="form-check-label" for="expertInstallation">
+                                            Expert Installation
+                                        </label>
+                                    </div>
+                                    <div class="form-check mb-3">
+                                        <input class="form-check-input" type="checkbox" id="warrantyIncluded" checked>
+                                        <label class="form-check-label" for="warrantyIncluded">
+                                            Warranty Included
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="result-card">
+                        <h4>Your Estimated Cost</h4>
+                        <div id="estimationResult" class="estimation-result">
+                            <p class="result-placeholder">Fill the form to see estimation</p>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Your Name</label>
+                            <input type="text" class="form-control" id="customerName" placeholder="Enter your name">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Phone Number</label>
+                            <input type="tel" class="form-control" id="customerPhone" placeholder="Enter your phone">
+                        </div>
+                        
+                        <button type="button" class="btn btn-success whatsapp-btn" onclick="sendWhatsAppRequest()">
+                            <i class="fab fa-whatsapp"></i> Send Request via WhatsApp
+                        </button>
+                        
+                        <div class="estimation-features mt-3">
+                            <div class="feature">
+                                <i class="fas fa-home"></i>
+                                <span>Free Site Visit</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-tools"></i>
+                                <span>Expert Installation</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-shield-alt"></i>
+                                <span>Warranty Included</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="testimonials" class="testimonials-section">
+        <div class="container">
+            <h2 class="section-title">What Our Customers Say</h2>
+            <div class="row justify-content-center">
+                <div class="col-md-4 mb-4">
+                    <div class="testimonial-card">
+                        <div class="stars">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <p>"Excellent mosquito mesh installation in our Gachibowli apartment. Professional team and quality work!"</p>
+                        <div class="client-info">
+                            <strong>- Rajesh Kumar, Gachibowli</strong>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="testimonial-card">
+                        <div class="stars">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <p>"Got invisible grills for my balcony in HITEC City. Amazing service and reasonable pricing!"</p>
+                        <div class="client-info">
+                            <strong>- Priya Sharma, HITEC City</strong>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="testimonial-card">
+                        <div class="stars">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <p>"UPVC windows installed in our Vishakapatnam home. Great quality and excellent customer service!"</p>
+                        <div class="client-info">
+                            <strong>- Ravi Teja, Vishakapatnam</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="faq-section">
+        <div class="container">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <p class="section-subtitle">Get answers to common questions about our services</p>
+            
+            <div class="accordion" id="faqAccordion">
+                <!-- FAQ 1 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                            How long does the installation take?
+                        </button>
+                    </h2>
+                    <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            <p>Installation time varies by service:</p>
+                            <ul>
+                                <li>Mosquito Mesh Doors: 1-2 days</li>
+                                <li>Invisible Grills: 2-3 days</li>
+                                <li>UPVC Windows: 3-5 days</li>
+                                <li>LED Mirrors: 1 day</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ 2 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                            What warranty do you provide?
+                        </button>
+                    </h2>
+                    <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            <p>We provide comprehensive warranties:</p>
+                            <ul>
+                                <li>Mosquito Mesh: 10 years</li>
+                                <li>Invisible Grills: 15 years</li>
+                                <li>UPVC Windows: 20 years</li>
+                                <li>Aluminium Windows: 12 years</li>
+                                <li>LED Mirrors: 5 years</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <h2 class="section-title">Contact Us</h2>
+            <p class="section-subtitle">Get in touch for free consultation</p>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <div>
+                                <h5>Call Us</h5>
+                                <p>+91 96426 61602</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fab fa-whatsapp"></i>
+                            <div>
+                                <h5>WhatsApp</h5>
+                                <p>+91 96426 61602</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <h5>Email</h5>
+                                <p>info@premiumhomesolutions.com</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <h5>Service Areas</h5>
+                                <p>Telangana & Andhra Pradesh</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="contact-form">
+                        <h4>Quick Contact</h4>
+                        <form id="quickContactForm">
+                            <input type="text" class="form-control mb-3" placeholder="Your Name" required>
+                            <input type="tel" class="form-control mb-3" placeholder="Phone Number" required>
+                            <select class="form-select mb-3" required>
+                                <option value="">Select Service</option>
+                                <option value="mesh">Mosquito Mesh Doors</option>
+                                <option value="invisible">Invisible Grills</option>
+                                <option value="upvc">UPVC Windows</option>
+                            </select>
+                            <textarea class="form-control mb-3" placeholder="Message" rows="4"></textarea>
+                            <button type="submit" class="btn btn-primary w-100">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Floating WhatsApp Button -->
+    <div class="whatsapp-float" onclick="openWhatsApp()">
+        <i class="fab fa-whatsapp"></i>
+        <span class="whatsapp-text">Chat with us</span>
     </div>
 
+    <!-- Floating Phone Button -->
+    <div class="phone-float" onclick="makeCall()">
+        <i class="fas fa-phone"></i>
+        <span class="phone-text">Call Us</span>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>Premium Home Solutions &copy; 2023 | All Rights Reserved</p>
+            <p>Servicing Telangana & Andhra Pradesh</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const form = document.getElementById('estimation-form');
-            const serviceSelect = document.getElementById('service');
-            const propertyTypeSelect = document.getElementById('property-type');
+        // Update estimation in real-time
+        function updateEstimation() {
+            const serviceSelect = document.getElementById('serviceType');
             const widthInput = document.getElementById('width');
             const heightInput = document.getElementById('height');
             const quantityInput = document.getElementById('quantity');
-            const calculateBtn = document.getElementById('calculate-btn');
-            const whatsappBtn = document.getElementById('whatsapp-btn');
-            const notification = document.getElementById('notification');
+            const resultDiv = document.getElementById('estimationResult');
             
-            const estimatedCostElement = document.getElementById('estimated-cost');
-            const serviceDisplay = document.getElementById('service-display');
-            const propertyDisplay = document.getElementById('property-display');
-            const areaDisplay = document.getElementById('area-display');
-            const quantityDisplay = document.getElementById('quantity-display');
-            const totalDisplay = document.getElementById('total-display');
+            // Check if all required fields are filled
+            if (!serviceSelect.value || !widthInput.value || !heightInput.value || !quantityInput.value) {
+                resultDiv.innerHTML = '<p class="result-placeholder">Fill the form to see estimation</p>';
+                return;
+            }
             
-            // Calculate estimation
-            calculateBtn.addEventListener('click', function() {
-                const width = parseFloat(widthInput.value) || 0;
-                const height = parseFloat(heightInput.value) || 0;
-                const quantity = parseInt(quantityInput.value) || 0;
-                
-                if (width <= 0 || height <= 0 || quantity <= 0) {
-                    alert('Please enter valid dimensions and quantity');
-                    return;
-                }
-                
-                const area = width * height;
-                const serviceText = serviceSelect.value;
-                const priceMatch = serviceText.match(/₹(\d+)\/sqft/);
-                const pricePerSqft = priceMatch ? parseInt(priceMatch[1]) : 380;
-                
-                const totalCost = area * quantity * pricePerSqft;
-                
-                // Update display
-                estimatedCostElement.textContent = `₹${totalCost.toLocaleString()}`;
-                serviceDisplay.textContent = serviceText.split(' - ')[0];
-                propertyDisplay.textContent = propertyTypeSelect.value;
-                areaDisplay.textContent = `${area.toFixed(2)} (${width}ft × ${height}ft)`;
-                quantityDisplay.textContent = quantity;
-                totalDisplay.textContent = `₹${totalCost.toLocaleString()}`;
-            });
+            // Get values
+            const service = serviceSelect.options[serviceSelect.selectedIndex].text;
+            const width = parseFloat(widthInput.value);
+            const height = parseFloat(heightInput.value);
+            const quantity = parseInt(quantityInput.value);
             
-            // WhatsApp integration
-            whatsappBtn.addEventListener('click', function() {
-                const width = parseFloat(widthInput.value) || 0;
-                const height = parseFloat(heightInput.value) || 0;
-                const quantity = parseInt(quantityInput.value) || 0;
-                
-                if (width <= 0 || height <= 0 || quantity <= 0) {
-                    alert('Please enter valid dimensions and quantity before submitting');
-                    return;
-                }
-                
-                const area = width * height;
-                const serviceText = serviceSelect.value;
-                const serviceName = serviceText.split(' - ')[0];
-                const priceMatch = serviceText.match(/₹(\d+)\/sqft/);
-                const pricePerSqft = priceMatch ? parseInt(priceMatch[1]) : 380;
-                
-                const totalCost = area * quantity * pricePerSqft;
-                
-                // Get selected options
-                const freeSiteVisit = document.getElementById('free-site-visit').checked;
-                const expertInstallation = document.getElementById('expert-installation').checked;
-                const warrantyIncluded = document.getElementById('warranty-included').checked;
-                
-                // Create formatted message for WhatsApp
-                const message = `*Premium Home Solution - Service Request*%0A%0A` +
-                    `*Service:* ${serviceName}%0A` +
-                    `*Property Type:* ${propertyTypeSelect.value}%0A` +
-                    `*Dimensions:* ${width}ft (width) × ${height}ft (height)%0A` +
-                    `*Area:* ${area.toFixed(2)} sqft%0A` +
-                    `*Quantity:* ${quantity}%0A` +
-                    `*Estimated Cost:* ₹${totalCost.toLocaleString()}%0A%0A` +
-                    `*Additional Services Selected:*%0A` +
-                    `${freeSiteVisit ? '✓ Free Site Visit%0A' : ''}` +
-                    `${expertInstallation ? '✓ Expert Installation%0A' : ''}` +
-                    `${warrantyIncluded ? '✓ Warranty Included%0A' : ''}` +
-                    `%0AThis is an approximate estimation. I would like to schedule a site visit for exact pricing.`;
-                
-                // Open WhatsApp with pre-filled message
-                const phoneNumber = "919876543210"; // Replace with actual business number
-                const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
-                window.open(whatsappUrl, '_blank');
-                
-                // Show notification
-                notification.style.display = 'block';
-                setTimeout(() => {
-                    notification.style.display = 'none';
-                }, 3000);
-            });
+            // Extract rate from service string
+            const rateMatch = service.match(/₹(\d+)/);
+            const rate = rateMatch ? parseInt(rateMatch[1]) : 0;
             
-            // Initialize with default values
-            calculateBtn.click();
+            // Calculate area and total cost
+            const area = width * height;
+            const totalCost = area * rate * quantity;
+            
+            // Update display
+            resultDiv.innerHTML = `
+                <div class="cost-row">
+                    <span>Service:</span>
+                    <span>${service.split(' - ')[0]}</span>
+                </div>
+                <div class="cost-row">
+                    <span>Dimensions:</span>
+                    <span>${width}ft × ${height}ft</span>
+                </div>
+                <div class="cost-row">
+                    <span>Area:</span>
+                    <span>${area.toFixed(2)} sqft</span>
+                </div>
+                <div class="cost-row">
+                    <span>Quantity:</span>
+                    <span>${quantity}</span>
+                </div>
+                <div class="cost-total">
+                    Total: ₹${totalCost.toLocaleString()}
+                </div>
+            `;
+        }
+        
+        // Update service details when service changes
+        function updateServiceDetails() {
+            updateEstimation();
+        }
+        
+        // Send WhatsApp request
+        function sendWhatsAppRequest() {
+            // Validate form
+            const serviceSelect = document.getElementById('serviceType');
+            const propertySelect = document.getElementById('propertyType');
+            const widthInput = document.getElementById('width');
+            const heightInput = document.getElementById('height');
+            const quantityInput = document.getElementById('quantity');
+            const customerName = document.getElementById('customerName').value || 'Not provided';
+            const customerPhone = document.getElementById('customerPhone').value || 'Not provided';
+            
+            if (!serviceSelect.value || !propertySelect.value || !widthInput.value || !heightInput.value || !quantityInput.value) {
+                alert('Please fill in all required fields (service, property type, width, height, and quantity)');
+                return;
+            }
+            
+            // Get form values
+            const service = serviceSelect.options[serviceSelect.selectedIndex].text;
+            const propertyType = propertySelect.options[propertySelect.selectedIndex].text;
+            const width = parseFloat(widthInput.value);
+            const height = parseFloat(heightInput.value);
+            const quantity = parseInt(quantityInput.value);
+            const area = width * height;
+            
+            // Get checkbox values
+            const freeSiteVisit = document.getElementById('freeSiteVisit').checked ? 'Yes' : 'No';
+            const expertInstallation = document.getElementById('expertInstallation').checked ? 'Yes' : 'No';
+            const warrantyIncluded = document.getElementById('warrantyIncluded').checked ? 'Yes' : 'No';
+            
+            // Extract rate and calculate total cost
+            const rateMatch = service.match(/₹(\d+)/);
+            const rate = rateMatch ? parseInt(rateMatch[1]) : 0;
+            const totalCost = area * rate * quantity;
+            
+            // Create the WhatsApp message
+            const message = `🏠 *Premium Home Solutions - Service Request* 🏠
+
+*Customer Details:*
+• Name: ${customerName}
+• Phone: ${customerPhone}
+
+*Service Details:*
+• Service: ${service}
+• Property Type: ${propertyType}
+• Dimensions: ${width}ft × ${height}ft
+• Area: ${area.toFixed(2)} sqft
+• Quantity: ${quantity}
+
+*Cost Estimation:*
+Total Estimated Cost: ₹${totalCost.toLocaleString()}
+
+*Additional Options:*
+• Free Site Visit: ${freeSiteVisit}
+• Expert Installation: ${expertInstallation}
+• Warranty Included: ${warrantyIncluded}
+
+*Customer Note:*
+This is an approximate estimation. I would like to request a site visit for exact pricing and to proceed with the installation.
+
+Thank you!`;
+            
+            // Encode the message for URL
+            const encodedMessage = encodeURIComponent(message);
+            
+            // Create WhatsApp URL
+            const whatsappURL = `https://wa.me/919642661602?text=${encodedMessage}`;
+            
+            // Open WhatsApp in a new tab
+            window.open(whatsappURL, '_blank');
+        }
+        
+        // Utility functions
+        function scrollToEstimator() {
+            document.getElementById('estimator').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function openWhatsApp() {
+            const message = "Hello, I'm interested in your home solutions. Please provide more information.";
+            const encodedMessage = encodeURIComponent(message);
+            window.open(`https://wa.me/919642661602?text=${encodedMessage}`, '_blank');
+        }
+        
+        function makeCall() {
+            window.open('tel:+919642661602', '_self');
+        }
+        
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add event listeners for real-time calculation
+            document.getElementById('serviceType').addEventListener('change', updateEstimation);
+            document.getElementById('propertyType').addEventListener('change', updateEstimation);
+            document.getElementById('width').addEventListener('input', updateEstimation);
+            document.getElementById('height').addEventListener('input', updateEstimation);
+            document.getElementById('quantity').addEventListener('input', updateEstimation);
         });
     </script>
 </body>
