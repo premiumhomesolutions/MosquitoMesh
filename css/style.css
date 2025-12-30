@@ -1,70 +1,46 @@
-:root{
-  --primary:#2c3e50;
-  --secondary:#3498db;
-  --accent:#e74c3c;
-  --light:#ecf0f1;
-  --dark:#2c3e50;
-}
+:root { --primary:#2c3e50; --secondary:#3498db; --accent:#e74c3c; --light:#ecf0f1; --dark:#2c3e50; }
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;line-height:1.6;color:#333;padding-top:70px}
 
-/* Reset */
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;line-height:1.6;color:#333;}
-
-/* NAV */
+/* Navbar */
 .navbar{background:rgba(44,62,80,0.95);backdrop-filter:blur(10px);transition:all .3s}
 .navbar-brand{font-weight:700;color:var(--light)!important}
-.navbar-nav .nav-link{color:var(--light)!important;font-weight:500;transition:color .3s}
-.navbar-nav .nav-link:hover{color:var(--accent)!important}
 
-/* HERO */
+/* Hero */
 .hero-section{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:#fff;padding:120px 0 80px;min-height:70vh;display:flex;align-items:center}
 .hero-title{font-size:3rem;font-weight:700;margin-bottom:1rem}
-.hero-subtitle{font-size:1.2rem;margin-bottom:1.5rem;opacity:.95}
-.hero-features{display:flex;gap:1.25rem;margin:1.5rem 0;flex-wrap:wrap}
-.feature-item{display:flex;align-items:center;gap:.5rem;font-weight:600}
-.feature-item i{color:var(--accent)}
-.hero-buttons{display:flex;gap:1rem;flex-wrap:wrap}
-.btn-primary{background:var(--accent);border:none;padding:12px 28px;border-radius:50px;font-weight:600}
+.hero-subtitle{font-size:1.2rem;margin-bottom:1.2rem;opacity:.95}
+.hero-features{display:flex;gap:1rem;margin:1rem 0}
+.hero-buttons{display:flex;gap:1rem}
 
-/* SERVICES */
-.services-section{padding:90px 0;background:var(--light)}
-.section-title{text-align:center;font-size:2.25rem;font-weight:700;margin-bottom:.5rem;color:var(--primary)}
-.section-subtitle{text-align:center;color:#666;margin-bottom:2rem}
-
-/* Card styles */
+/* Services */
+.services-section{padding:80px 0;background:var(--light)}
 .service-card{background:#fff;border-radius:15px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.08);transition:all .3s;height:100%}
-.service-card:hover{transform:translateY(-8px)}
 .service-img{width:100%;height:250px;object-fit:cover;cursor:pointer;transition:transform .3s}
 .service-img:hover{transform:scale(1.05)}
-.btn-service{background:var(--secondary);color:#fff;border:none;padding:10px 25px;border-radius:25px;cursor:pointer;width:100%}
+.view-video-btn{position:absolute;top:10px;right:10px;background:rgba(231,76,60,.9);color:#fff;padding:8px 12px;border-radius:25px;border:none}
 
 /* Estimator */
-.estimator-section{padding:100px 0;background:#fff}
-.estimator-card,.result-card{padding:2rem;border-radius:15px;box-shadow:0 10px 30px rgba(0,0,0,.08);margin-bottom:1.5rem}
+.estimator-section{padding:80px 0;background:#fff}
+.estimator-card,.result-card{padding:1.5rem;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.08);margin-bottom:1rem}
 .result-card{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:#fff;position:sticky;top:20px}
-.estimation-result{text-align:center;padding:1.5rem;background:rgba(255,255,255,0.08);border-radius:10px;min-height:160px;display:flex;flex-direction:column;align-items:center;justify-content:center}
-
+.estimation-result{padding:1rem;background:rgba(255,255,255,.08);border-radius:10px;min-height:140px;display:flex;flex-direction:column;align-items:center;justify-content:center}
 .price-range{font-size:2rem;font-weight:700;margin:1rem 0}
-.service-name{font-size:1.2rem;font-weight:600;margin-bottom:.5rem}
 
-/* Addon */
-.addon-option{background:#f8f9fa;border:2px solid #e9ecef;border-radius:10px;padding:12px;margin-bottom:10px}
+/* Addons */
+.addon-option{background:#f8f9fa;border:2px solid #e9ecef;border-radius:10px;padding:12px;margin-bottom:8px}
 .addon-option.selected{border-color:var(--accent);background:rgba(231,76,60,0.04)}
 .addon-price{color:var(--accent);font-weight:600;float:right}
 
-/* Testimonials */
-.testimonials-section{padding:80px 0;background:var(--light)}
-.testimonial-card{background:#fff;padding:1.75rem;border-radius:12px;box-shadow:0 8px 20px rgba(0,0,0,.06);text-align:center}
-
-/* FAQ & Contact */
-.faq-section,.contact-section{padding:80px 0;background:#fff}
-.contact-item{display:flex;align-items:center;gap:1rem;padding:1rem;background:#fff;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,.05)}
-.contact-item i{font-size:1.6rem;color:var(--secondary);width:50px;text-align:center}
+/* Testimonials/faq/contact */
+.testimonials-section{padding:60px 0;background:var(--light)}
+.testimonial-card{background:#fff;padding:1.25rem;border-radius:12px;box-shadow:0 8px 20px rgba(0,0,0,.06)}
+.faq-section,.contact-section{padding:60px 0}
 
 /* Floating buttons */
-.whatsapp-float{position:fixed;bottom:25px;right:25px;background:#25D366;color:#fff;padding:12px 16px;border-radius:50px;display:flex;gap:.6rem;align-items:center;box-shadow:0 10px 25px rgba(37,211,102,.2);cursor:pointer;z-index:1000}
-.phone-float{position:fixed;bottom:90px;right:25px;background:#3498db;color:#fff;padding:12px 16px;border-radius:50px;display:flex;gap:.6rem;align-items:center;box-shadow:0 10px 25px rgba(52,152,219,.2);cursor:pointer;z-index:1000}
-.whatsapp-text,.phone-text{font-weight:600}
+.whatsapp-float{position:fixed;bottom:25px;right:25px;background:#25D366;color:#fff;padding:12px 16px;border-radius:50px;display:flex;align-items:center;gap:.6rem;z-index:1000;box-shadow:0 10px 25px rgba(37,211,102,.2)}
+.phone-float{position:fixed;bottom:90px;right:25px;background:#3498db;color:#fff;padding:12px 16px;border-radius:50px;display:flex;align-items:center;gap:.6rem;z-index:1000}
+
 
 /* Modal */
 .modal-content{border-radius:12px;border:none}
@@ -72,8 +48,9 @@ body{font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;line-height:1.
 
 /* Responsive */
 @media (max-width:768px){
-  .hero-title{font-size:2.25rem}
+  .hero-title{font-size:2rem}
   .service-modal-features{grid-template-columns:1fr}
-  .service-details{grid-template-columns:1fr}
-  .whatsapp-text,.phone-text{display:none}
+  .whatsapp-float,.phone-float{right:20px;bottom:20px;padding:10px}
+  .phone-float{bottom:80px}
+  .whatsapp-float .whatsapp-text,.phone-float .phone-text{display:none}
 }
