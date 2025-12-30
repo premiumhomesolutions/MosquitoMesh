@@ -1,56 +1,53 @@
-// modal.js - robust image & video modal handling
+// Modal functionality for images and videos
 
-const imageModalEl = document.getElementById('imageModal');
-const videoModalEl = document.getElementById('videoModal');
-const modalImage = document.getElementById('modalImage');
-const modalVideo = document.getElementById('modalVideo');
-const videoModalTitle = document.getElementById('videoModalTitle');
-
-function openImageModal(src, alt = '') {
-  if (!modalImage || !imageModalEl) return;
-  modalImage.src = src;
-  modalImage.alt = alt;
-  const m = new bootstrap.Modal(imageModalEl);
-  m.show();
+// Image Modal
+function openImageModal(imageSrc) {
+    const modalImage = document.getElementById('modalImage');
+    modalImage.src = imageSrc;
+    modalImage.alt = 'Product Image';
+    
+    const imageModal = new bootstrap.Modal(document.getElementById('imageModal'));
+    imageModal.show();
 }
 
-function openVideoModal(title, src) {
-  if (!modalVideo || !videoModalEl) return;
-  if (videoModalTitle) videoModalTitle.textContent = title || 'Video';
-  modalVideo.src = src;
-  const m = new bootstrap.Modal(videoModalEl);
-  m.show();
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  // Play video on show, stop on hide (attach once)
-  if (videoModalEl && modalVideo) {
-    videoModalEl.addEventListener('shown.bs.modal', () => { try { modalVideo.play(); } catch (e) {} });
-    videoModalEl.addEventListener('hidden.bs.modal', () => { try { modalVideo.pause(); modalVideo.currentTime = 0; modalVideo.removeAttribute('src'); modalVideo.load(); } catch(e) {} });
-  }
-
-  // Close modal on backdrop click (works for all modals)
-  [imageModalEl, videoModalEl, document.getElementById('serviceModal'), document.getElementById('customerFormModal')].forEach(modal => {
-    if (!modal) return;
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) {
-        const inst = bootstrap.Modal.getInstance(modal);
-        if (inst) inst.hide();
-      }
+// Video Modal
+function openVideoModal(title, videoSrc) {
+    const modalVideo = document.getElementById('modalVideo');
+    const modalTitle = document.getElementById('videoModalTitle');
+    
+    modalTitle.textContent = title;
+    modalVideo.src = videoSrc;
+    
+    const videoModal = new bootstrap.Modal(document.getElementById('videoModal'));
+    videoModal.show();
+    
+    // Play video when modal opens
+    videoModal._element.addEventListener('shown.bs.modal', function () {
+        modalVideo.play();
     });
-  });
+    
+    // Pause video when modal closes
+    videoModal._element.addEventListener('hidden.bs.modal', function () {
+        modalVideo.pause();
+        modalVideo.currentTime = 0;
+    });
+}
 
-  // Delegate clicks for images and video buttons inside service cards
-  document.addEventListener('click', (e) => {
-    const img = e.target.closest('.service-img');
-    if (img && img.dataset && img.dataset.img) {
-      openImageModal(img.dataset.img, img.alt || '');
-    }
-    const vbtn = e.target.closest('.view-video-btn');
-    if (vbtn) {
-      const title = vbtn.getAttribute('data-video-title');
-      const src = vbtn.getAttribute('data-video-src');
-      if (src) openVideoModal(title, src);
-    }
-  });
+// Close modals when clicking outside
+document.addEventListener('DOMContentLoaded', function() {
+    const imageModal = document.getElementById('imageModal');
+    const videoModal = document.getElementById('videoModal');
+    const serviceModal = document.getElementById('serviceModal');
+    const customerFormModal = document.getElementById('customerFormModal');
+    
+    [imageModal, videoModal, serviceModal, customerFormModal].forEach(modal => {
+        if (modal) {
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    const modalInstance = bootstrap.Modal.getInstance(modal);
+                    modalInstance.hide();
+                }
+            });
+        }
+    });
 });
