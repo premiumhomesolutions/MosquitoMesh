@@ -1,28 +1,10 @@
-// estimator.js
-// Rates and addon configuration (single source)
+// estimator.js - service rates & addon setup
+
 const serviceRates = {
-  mesh: {
-    base: 250,
-    min: 2000,
-    max: 15000,
-    unit: 'sqft',
-    addons: [{ id: 'premium-mesh', name: 'Premium Mesh', price: 50, unit: 'sqft' }]
-  },
-  invisible: {
-    base: 190,
-    min: 3000,
-    max: 25000,
-    unit: 'sqft',
-    addons: [{ id: 'premium-invisible', name: 'Premium Invisible Grills', price: 200, unit: 'sqft' }]
-  },
-  aluminium: {
-    base: 380, min: 4000, max: 35000, unit: 'sqft',
-    addons: [{ id: 'premium-aluminium', name: 'Premium Aluminium Windows', price: 300, unit: 'sqft' }]
-  },
-  upvc: {
-    base: 350, min: 5000, max: 45000, unit: 'sqft',
-    addons: [{ id: 'tuffan-glass', name: 'Tuffan Glass', price: 30, unit: 'sqft' }, { id: 'color-glass', name: 'Color Glass', price: 20, unit: 'sqft' }]
-  },
+  mesh: { base: 250, min: 2000, max: 15000, unit: 'sqft', addons: [{ id: 'premium-mesh', name: 'Premium Mesh', price: 50, unit: 'sqft' }] },
+  invisible: { base: 190, min: 3000, max: 25000, unit: 'sqft', addons: [{ id: 'premium-invisible', name: 'Premium Invisible Grills', price: 200, unit: 'sqft' }] },
+  aluminium: { base: 380, min: 4000, max: 35000, unit: 'sqft', addons: [{ id: 'premium-aluminium', name: 'Premium Aluminium Windows', price: 300, unit: 'sqft' }] },
+  upvc: { base: 350, min: 5000, max: 45000, unit: 'sqft', addons: [{ id: 'tuffan-glass', name: 'Tuffan Glass', price: 30, unit: 'sqft' }, { id: 'color-glass', name: 'Color Glass', price: 20, unit: 'sqft' }] },
   led: { base: 550, min: 3000, max: 20000, unit: 'sqft', addons: [{ id: 'premium-led', name: 'Premium LED Mirrors', price: 30, unit: 'sqft' }] },
   shower: { base: 350, min: 6000, max: 30000, unit: 'sqft', addons: [{ id: 'premium-shower', name: 'Premium Shower Partition', price: 30, unit: 'sqft' }] },
   kitchen: { base: 440, min: 2500, max: 18000, unit: 'sqft', addons: [{ id: 'premium-kitchen', name: 'Premium Kitchen Profile', price: 50, unit: 'sqft' }] },
@@ -31,7 +13,7 @@ const serviceRates = {
 
 let selectedAddons = {};
 
-// updateAddons() will build addon checkboxes for selected service
+// updateAddons: builds addon options dynamically and adjusts labels/height visibility
 function updateAddons() {
   const serviceType = (document.getElementById('serviceType') || {}).value;
   const addonsSection = document.getElementById('addonsSection');
@@ -40,12 +22,14 @@ function updateAddons() {
   const heightLabel = document.getElementById('heightLabel');
   const heightInput = document.getElementById('height');
 
+  // reset
   selectedAddons = {};
   if (addonsContainer) addonsContainer.innerHTML = '';
 
   if (serviceType && serviceRates[serviceType]) {
     if (addonsSection) addonsSection.style.display = 'block';
 
+    // hanger is piece based
     if (serviceType === 'hanger') {
       if (dimensionLabel) dimensionLabel.textContent = 'Length (feet) *';
       if (heightLabel) heightLabel.style.display = 'none';
@@ -62,11 +46,12 @@ function updateAddons() {
       wrapper.className = 'addon-option';
       wrapper.innerHTML = `
         <div class="form-check">
-          <input class="form-check-input" type="checkbox" id="${addon.id}">
+          <input class="form-check-input" type="checkbox" id="${addon.id}" />
           <label class="form-check-label" for="${addon.id}">
             ${addon.name} <span class="addon-price">+₹${addon.price}/${addon.unit}</span>
           </label>
-        </div>`;
+        </div>
+      `;
       addonsContainer.appendChild(wrapper);
 
       const checkbox = wrapper.querySelector('input[type="checkbox"]');
@@ -92,3 +77,9 @@ function toggleAddon(addonId, price, unit) {
     if (container) container.classList.remove('selected');
   }
 }
+
+// exported for dev/debug if needed (not required by script)
+window.serviceRates = serviceRates;
+window.selectedAddons = selectedAddons;
+window.updateAddons = updateAddons;
+window.toggleAddon = toggleAddon;
