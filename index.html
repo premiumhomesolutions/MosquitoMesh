@@ -379,96 +379,90 @@
         </div>
     </section>
 
-    <!-- Estimation Calculator -->
-    <section id="estimator" class="estimator-section">
-        <div class="container">
-            <h2 class="section-title">Get Your Free Estimation</h2>
-            <p class="section-subtitle">Calculate approximate cost for your requirements</p>
-            
-            <div class="row">
-                <div class="col-lg-8">
-                    <div class="estimator-card">
-                        <form id="estimationForm">
-                            <div class="row g-3">
-                                <div class="col-md-6">
-                                    <label class="form-label">Select Service *</label>
-                                    <select class="form-select" id="serviceType" required onchange="updateAddons()">
-                                        <option value="">Choose Service</option>
-                                        <option value="mesh">Mosquito Mesh Doors - ₹250/sqft</option>
-                                        <option value="invisible">Invisible Grills - ₹190/sqft</option>
-                                        <option value="aluminium">Aluminium Windows - ₹380/sqft</option>
-                                        <option value="upvc">UPVC Windows - ₹350/sqft</option>
-                                        <option value="led">LED Mirrors - ₹550/sqft</option>
-                                        <option value="shower">Shower Partitions - ₹350/sqft</option>
-                                        <option value="kitchen">Aluminium Kitchen Profile - ₹440/sqft</option>
-                                        <option value="hanger">Cloth Hanger - ₹2600/piece</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label">Property Type *</label>
-                                    <select class="form-select" id="propertyType" required>
-                                        <option value="">Choose Type</option>
-                                        <option value="apartment">Apartment</option>
-                                        <option value="villa">Villa</option>
-                                        <option value="office">Office</option>
-                                        <option value="commercial">Commercial</option>
-                                    </select>
-                                </div>
-                                
-                                <div class="col-md-4">
-                                    <label class="form-label" id="dimensionLabel">Width (feet) *</label>
-                                    <input type="number" class="form-control" id="width" placeholder="e.g., 6" min="1" required>
-                                </div>
-                                <div class="col-md-4">
-                                    <label class="form-label" id="heightLabel">Height (feet) *</label>
-                                    <input type="number" class="form-control" id="height" placeholder="e.g., 7" min="1" required>
-                                </div>
-                                <div class="col-md-4">
-                                    <label class="form-label">Quantity *</label>
-                                    <input type="number" class="form-control" id="quantity" placeholder="e.g., 2" min="1" required>
-                                </div>
-
-                                <!-- Dynamic Addons Section -->
-                                <div class="col-12" id="addonsSection" style="display: none;">
-                                    <label class="form-label">Premium Features (Optional)</label>
-                                    <div id="addonsContainer"></div>
-                                </div>
-
-                                <div class="col-12">
-                                    <button type="button" class="btn btn-primary btn-lg" onclick="showCustomerForm()">
-                                        <i class="fas fa-calculator"></i> Calculate Estimation
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
+    <!-- Estimation Calculator Modal (insert near other modals at bottom of body) -->
+<div class="modal fade" id="estimationModal" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Calculate Your Estimation</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <!-- Form Section -->
+          <div class="col-lg-8">
+            <form id="modalEstimationForm">
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label class="form-label">Select Service *</label>
+                  <select class="form-select" id="serviceType" required onchange="updateAddons(); calculateModalUpdate();">
+                    <option value="">Choose Service</option>
+                    <option value="mesh">Mosquito Mesh Doors - ₹250/sqft</option>
+                    <option value="invisible">Invisible Grills - ₹190/sqft</option>
+                    <option value="aluminium">Aluminium Windows - ₹380/sqft</option>
+                    <option value="upvc">UPVC Windows - ₹350/sqft</option>
+                    <option value="led">LED Mirrors - ₹550/sqft</option>
+                    <option value="shower">Shower Partitions - ₹350/sqft</option>
+                    <option value="kitchen">Aluminium Kitchen Profile - ₹440/sqft</option>
+                    <option value="hanger">Cloth Hanger - ₹2600/piece</option>
+                  </select>
                 </div>
-
-                <div class="col-lg-4">
-                    <div class="result-card">
-                        <h4>Your Estimated Cost</h4>
-                        <div id="estimationResult" class="estimation-result">
-                            <p class="result-placeholder">Fill the form to see estimation</p>
-                        </div>
-                        <div class="estimation-features">
-                            <div class="feature">
-                                <i class="fas fa-home"></i>
-                                <span>Free Site Visit</span>
-                            </div>
-                            <div class="feature">
-                                <i class="fas fa-tools"></i>
-                                <span>Expert Installation</span>
-                            </div>
-                            <div class="feature">
-                                <i class="fas fa-shield-alt"></i>
-                                <span>Warranty Included</span>
-                            </div>
-                        </div>
-                    </div>
+                <div class="col-md-6">
+                  <label class="form-label">Property Type *</label>
+                  <select class="form-select" id="propertyType" required>
+                    <option value="">Choose Type</option>
+                    <option value="apartment">Apartment</option>
+                    <option value="villa">Villa</option>
+                    <option value="commercial">Commercial</option>
+                  </select>
                 </div>
+                <div class="col-md-4">
+                  <label class="form-label" id="dimensionLabel">Width (feet) *</label>
+                  <input type="number" class="form-control" id="width" min="1" placeholder="e.g., 6" required oninput="calculateModalUpdate()">
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label" id="heightLabel">Height (feet) *</label>
+                  <input type="number" class="form-control" id="height" min="1" placeholder="e.g., 7" required oninput="calculateModalUpdate()">
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label">Quantity *</label>
+                  <input type="number" class="form-control" id="quantity" min="1" placeholder="e.g., 2" required oninput="calculateModalUpdate()">
+                </div>
+                
+                <!-- Dynamic Addons -->
+                <div class="col-12" id="addonsSection" style="display: none;">
+                  <label class="form-label">Premium Features (Optional)</label>
+                  <div id="addonsContainer"></div>
+                </div>
+                
+                <!-- We removed the separate "Calculate" button; calculation is live -->
+              </div>
+            </form>
+          </div>
+          
+          <!-- Result & Action Section -->
+          <div class="col-lg-4">
+            <div class="result-card">
+              <h4>Your Estimated Cost</h4>
+              <div id="modalEstimationResult" class="estimation-result">
+                <p class="result-placeholder">Fill the form to see estimation</p>
+              </div>
             </div>
+            <div class="mt-3 text-center">
+              <a id="modalWhatsAppBtn" class="btn btn-success btn-lg mb-2" href="#" target="_blank">
+                <i class="fab fa-whatsapp"></i> Message via WhatsApp
+              </a>
+              <a id="modalCallBtn" class="btn btn-primary btn-lg" href="tel:+919642661602">
+                <i class="fas fa-phone"></i> Call Us
+              </a>
+            </div>
+          </div>
+          
         </div>
-    </section>
+      </div>
+    </div>
+  </div>
+</div>
 
     <!-- Testimonials -->
     <section id="testimonials" class="testimonials-section">
