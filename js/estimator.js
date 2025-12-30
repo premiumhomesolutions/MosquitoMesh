@@ -161,3 +161,15 @@ window.updateAddons = updateAddons;
 window.toggleAddon = toggleAddon;
 window.selectedAddons = selectedAddons;
 window.openEstimatorFromQuote = openEstimatorFromQuote;
+
+// Modal-specific addon functions (so modal and page do not conflict)
+function updateAddonsModal() {
+  // falls back to updateAddons if you prefer consistency
+  if (typeof updateAddons === 'function') {
+    // we still call the modal-specific builder to avoid ID conflicts
+    // but if your app uses single set of IDs, comment this out
+  }
+  // The modal-specific builder is handled in script.js (updateAddonsModal)
+  // so this placeholder exists to avoid missing function errors
+}
+
