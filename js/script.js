@@ -273,25 +273,206 @@ const serviceDetails = {
   hanger: { title: "Cloth Hangers", description: "Premium cloth hangers and drying solutions.", features: [], price:"₹2600/piece" }
 };
 
+// --- openServiceModal (REPLACE existing function with this) ---
 function openServiceModal(serviceType) {
-  const s = serviceDetails[serviceType];
-  if (!s) return;
-  const titleEl = document.getElementById('serviceModalTitle');
-  const contentEl = document.getElementById('serviceModalContent');
-  if (titleEl) titleEl.textContent = s.title;
-  if (contentEl) {
-    const featuresHtml = (s.features || []).map(f => `<div class="service-feature"><i class="${f.icon}"></i><p>${f.text}</p></div>`).join('');
-    contentEl.innerHTML = `<h4>${s.title}</h4><p class="text-muted">${s.description}</p><div class="service-modal-features">${featuresHtml}</div><div class="price-info"><strong>Starting at ${s.price}</strong></div><div class="mt-3"><button class="btn btn-primary btn-lg me-3" onclick="getEstimationFromModal('${serviceType}')">
-  <i class="fas fa-calculator"></i> Get Estimation
-</button>
-<button class="btn btn-outline-primary" onclick="openWhatsApp()">Chat Now</button></div>`;
+  const service = serviceDetails && serviceDetails[serviceType] ? serviceDetails[serviceType] : null;
+  const title = document.getElementById('serviceModalTitle');
+  const content = document.getElementById('serviceModalContent');
+
+  if (title) title.textContent = service ? service.title : 'Service';
+  if (content) {
+    const featuresHtml = (service && service.features ? service.features : []).map(f => `<div class="service-feature"><i class="${f.icon}"></i><p>${f.text}</p></div>`).join('');
+    const priceInfo = service && service.price ? `<div class="price-info mt-3"><strong>Starting at ${service.price}</strong></div>` : '';
+    content.innerHTML = `
+      <h4>${service ? service.title : ''}</h4>
+      <p class="text-muted">${service ? service.description : ''}</p>
+      <div class="service-modal-features">${featuresHtml}</div>
+      ${priceInfo}
+      <div class="mt-3 action-buttons">
+        <button class="btn btn-primary btn-lg me-3" onclick="(function(){ 
+            const svcModalEl = document.getElementById('serviceModal'); 
+            const inst = bootstrap.Modal.getInstance(svcModalEl); 
+            if(inst) inst.hide(); 
+            // give bootstrap time to hide modal then open estimation
+            setTimeout(function(){ openEstimationModal('${serviceType}'); }, 250); 
+          })();">
+          <i class="fas fa-calculator"></i> Get Estimation
+        </button>
+        <button class="btn btn-outline-primary btn-lg" onclick="openWhatsApp()"><i class="fab fa-whatsapp"></i> Chat Now</button>
+      </div>
+    `;
   }
+
   const m = new bootstrap.Modal(document.getElementById('serviceModal'));
   m.show();
 }
 
-function scrollToEstimatorWithService(serviceType) {
-  const sel = document.getElementById('serviceType');
-  if (sel) { sel.value = serviceType; updateAddons(); }
-  scrollToEl('estimator');
+// ----- Estimation Modal logic -----
+
+// keeps track of addons selected inside the modal
+let selectedAddonsModal = {};
+
+// Open estimation modal and optionally preselect a service
+function openEstimationModal(preselectService = '') {
+  try {
+    // set preselected service if provided
+    const svcSelect = document.getElementById('serviceTypeModal');
+    if (svcSelect && preselectService) {
+      svcSelect.value = preselectService;
+    } else if (svcSelect && !svcSelect.value) {
+      svcSelect.value = '';
+    }
+
+    // populate addons and UI
+    updateAddonsModal();
+    calculateModalUpdate();
+
+    // show modal
+    const emod = new bootstrap.Modal(document.getElementById('estimationModal'));
+    emod.show();
+  } catch (e) {
+    console.error('openEstimationModal error', e);
+  }
+}
+
+// Update addons UI in modal (uses serviceRates from estimator.js)
+function updateAddonsModal() {
+  const serviceType = (document.getElementById('serviceTypeModal') || {}).value;
+  const addonsSection = document.getElementById('addonsSectionModal');
+  const addonsContainer = document.getElementById('addonsContainerModal');
+  const dimensionLabel = document.getElementById('dimensionLabelModal');
+  const heightLabel = document.getElementById('heightLabelModal');
+  const heightInput = document.getElementById('heightModal');
+
+  selectedAddonsModal = {};
+  if (addonsContainer) addonsContainer.innerHTML = '';
+
+  if (!serviceType || !window.serviceRates || !serviceRates[serviceType]) {
+    if (addonsSection) addonsSection.style.display = 'none';
+    if (dimensionLabel) dimensionLabel.textContent = 'Width (feet) *';
+    if (heightLabel) heightLabel.textContent = 'Height (feet) *';
+    if (heightInput) heightInput.style.display = 'block';
+    return;
+  }
+
+  if (addonsSection) addonsSection.style.display = 'block';
+
+  if (serviceType === 'hanger') {
+    if (dimensionLabel) dimensionLabel.textContent = 'Length (feet) *';
+    if (heightLabel) heightLabel.style.display = 'none';
+    if (heightInput) { heightInput.style.display = 'none'; heightInput.value = ''; }
+  } else {
+    if (dimensionLabel) dimensionLabel.textContent = 'Width (feet) *';
+    if (heightLabel) { heightLabel.style.display = 'block'; heightLabel.textContent = 'Height (feet) *'; }
+    if (heightInput) heightInput.style.display = 'block';
+  }
+
+  const addons = serviceRates[serviceType].addons || [];
+  addons.forEach(addon => {
+    const div = document.createElement('div');
+    div.className = 'addon-option';
+    div.innerHTML = `
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="modal_${addon.id}">
+        <label class="form-check-label" for="modal_${addon.id}">${addon.name} <span class="addon-price">+₹${addon.price}/${addon.unit}</span></label>
+      </div>
+    `;
+    addonsContainer.appendChild(div);
+    const cb = div.querySelector('input[type="checkbox"]');
+    cb.addEventListener('change', () => toggleAddonModal(addon.id, addon.price, addon.unit, cb));
+  });
+
+  // after building addons, recalc
+  calculateModalUpdate();
+}
+
+// Toggle addon inside modal
+function toggleAddonModal(addonId, price, unit, checkboxElement) {
+  if (checkboxElement && checkboxElement.checked) {
+    selectedAddonsModal[addonId] = { price, unit };
+    checkboxElement.closest('.addon-option').classList.add('selected');
+  } else {
+    delete selectedAddonsModal[addonId];
+    if (checkboxElement) checkboxElement.closest('.addon-option').classList.remove('selected');
+  }
+  calculateModalUpdate();
+}
+
+// Live calculate and update modal result + WhatsApp link
+function calculateModalUpdate() {
+  const serviceType = (document.getElementById('serviceTypeModal') || {}).value;
+  const width = parseFloat((document.getElementById('widthModal') || {}).value || 0);
+  const height = parseFloat((document.getElementById('heightModal') || {}).value || 0);
+  const quantity = parseInt((document.getElementById('quantityModal') || {}).value || '0', 10);
+
+  const resultDiv = document.getElementById('modalEstimationResult');
+  const waBtn = document.getElementById('modalWhatsAppBtn');
+
+  if (!serviceType || !quantity || quantity <= 0) {
+    if (resultDiv) resultDiv.innerHTML = '<p class="result-placeholder">Fill the form to see estimation</p>';
+    if (waBtn) waBtn.href = '#';
+    return;
+  }
+
+  if (serviceType !== 'hanger' && (!width || width <= 0 || !height || height <= 0)) {
+    if (resultDiv) resultDiv.innerHTML = '<p class="result-placeholder">Enter valid width and height</p>';
+    if (waBtn) waBtn.href = '#';
+    return;
+  }
+
+  // calculate price using same logic as calculateEstimation (uses serviceRates)
+  let area = 0;
+  let total = 0;
+  const service = serviceRates[serviceType];
+  if (!service) { if (resultDiv) resultDiv.innerHTML = '<p class="result-placeholder">Service not found</p>'; return; }
+
+  if (serviceType === 'hanger') {
+    area = quantity;
+    total = service.base * quantity;
+  } else {
+    area = width * height * quantity;
+    total = service.base * area;
+  }
+
+  // addons (modal)
+  Object.values(selectedAddonsModal || {}).forEach(addon => {
+    if (!addon || typeof addon.price !== 'number') return;
+    if (serviceType === 'hanger') total += addon.price * quantity;
+    else total += addon.price * area;
+  });
+
+  // clamp min/max (per earlier logic)
+  const min = (service.min || 0) * (service.unit === 'piece' ? quantity : 1);
+  const max = (service.max || Infinity) * (service.unit === 'piece' ? quantity : 1);
+  total = Math.max(min, Math.min(max, total));
+
+  // GST 18%
+  total = total * 1.18;
+  total = Math.round(total);
+
+  // prepare area text
+  const areaText = service.unit === 'piece' ? `${quantity} piece(s)` : `${parseFloat(area.toFixed(2))} sqft (${quantity} unit(s))`;
+
+  // show in modal result
+  if (resultDiv) {
+    resultDiv.innerHTML = `
+      <div class="service-name">${serviceType}</div>
+      <div class="area-info">${areaText}</div>
+      <div class="price-range">₹${total.toLocaleString('en-IN')}</div>
+      <div class="price-note">*Inclusive of 18% GST</div>
+    `;
+  }
+
+  // build WhatsApp message
+  const serviceSelect = document.getElementById('serviceTypeModal');
+  const serviceText = serviceSelect ? serviceSelect.options[serviceSelect.selectedIndex].text.split(' - ')[0] : serviceType;
+  const addonNames = Object.keys(selectedAddonsModal || {}).map(id => {
+    const a = (serviceRates[serviceType].addons || []).find(x => x.id === id);
+    return a ? a.name : id;
+  });
+  const addonText = addonNames.length ? addonNames.join(', ') : 'None';
+  const dimText = serviceType === 'hanger' ? `${quantity} piece(s)` : `${width}ft × ${height}ft, Qty: ${quantity}`;
+
+  const message = `Quotation Request:%0AService: ${serviceText}%0ADimensions: ${dimText}%0AAdd-ons: ${addonText}%0AEstimated Price: ₹${total.toLocaleString('en-IN')}%0A%0APlease contact me for a site visit.`;
+  if (waBtn) waBtn.href = `https://wa.me/919642661602?text=${message}`;
 }
