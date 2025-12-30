@@ -1,77 +1,55 @@
-// modal.js
-// Modal functionality for images and videos (clean, single-listener approach)
+// modal.js - robust modal handlers (single listeners)
 
-// Helpers to get elements
-const modalImageEl = document.getElementById('modalImage');
-const modalVideoEl = document.getElementById('modalVideo');
-const videoModalEl = document.getElementById('videoModal');
+// Cached elements
 const imageModalEl = document.getElementById('imageModal');
+const videoModalEl = document.getElementById('videoModal');
+const modalImage = document.getElementById('modalImage');
+const modalVideo = document.getElementById('modalVideo');
+const videoModalTitle = document.getElementById('videoModalTitle');
 
-// Image Modal
-function openImageModal(imageSrc) {
-    if (!modalImageEl) return;
-    modalImageEl.src = imageSrc;
-    modalImageEl.alt = 'Product Image';
-
-    if (typeof bootstrap === 'undefined') {
-        console.error('Bootstrap is required for modals.');
-        return;
-    }
-
-    const imageModal = new bootstrap.Modal(imageModalEl);
-    imageModal.show();
+// Open image modal
+function openImageModal(src, alt = 'Image') {
+  if (!modalImage || !imageModalEl) return;
+  modalImage.src = src;
+  modalImage.alt = alt;
+  const m = new bootstrap.Modal(imageModalEl);
+  m.show();
 }
 
-// Video Modal
-function openVideoModal(title, videoSrc) {
-    const modalTitle = document.getElementById('videoModalTitle');
-    if (modalTitle) modalTitle.textContent = title;
-
-    if (!modalVideoEl) return;
-    // set src (use dataset to avoid reloading strangely)
-    modalVideoEl.src = videoSrc;
-
-    if (typeof bootstrap === 'undefined') {
-        console.error('Bootstrap is required for modals.');
-        return;
-    }
-
-    const videoModal = new bootstrap.Modal(videoModalEl);
-    videoModal.show();
+// Open video modal
+function openVideoModal(title, src) {
+  if (!modalVideo || !videoModalEl) return;
+  videoModalTitle.textContent = title || 'Video';
+  // set source and play when modal shown
+  modalVideo.src = src;
+  const m = new bootstrap.Modal(videoModalEl);
+  m.show();
 }
 
-// Attach single event listeners (only once)
-document.addEventListener('DOMContentLoaded', function () {
-    if (!videoModalEl || !modalVideoEl) return;
-
-    // Use event delegation via the modal element (bootstrap emits events on the element)
+// Attach single event listeners (once)
+document.addEventListener('DOMContentLoaded', () => {
+  if (videoModalEl && modalVideo) {
     videoModalEl.addEventListener('shown.bs.modal', () => {
-        // Play only if source set
-        try { modalVideoEl.play(); } catch (e) { /* ignore autoplay restrictions */ }
+      // try play (may be blocked by autoplay policy)
+      try { modalVideo.play(); } catch (e) { /* ignore */ }
     });
 
     videoModalEl.addEventListener('hidden.bs.modal', () => {
-        // Pause and reset when closed
-        try {
-            modalVideoEl.pause();
-            modalVideoEl.currentTime = 0;
-            // Optionally clear src to free memory
-            modalVideoEl.removeAttribute('src');
-            modalVideoEl.load();
-        } catch (e) { /* ignore */ }
+      modalVideo.pause();
+      modalVideo.currentTime = 0;
+      modalVideo.removeAttribute('src');
+      modalVideo.load();
     });
+  }
 
-    // Close modals by clicking outside (backdrop element)
-    const serviceModal = document.getElementById('serviceModal');
-    const customerFormModal = document.getElementById('customerFormModal');
-
-    [imageModalEl, videoModalEl, serviceModal, customerFormModal].forEach(modal => {
-        if (!modal) return;
-        modal.addEventListener('click', function (e) {
-            if (e.target === modal) {
-                const instance = bootstrap.Modal.getInstance(modal);
-                if (instance) instance.hide();
-            }
-        });
+  // close on backdrop click (safe)
+  [imageModalEl, videoModalEl].forEach(modal => {
+    if (!modal) return;
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        const inst = bootstrap.Modal.getInstance(modal);
+        if (inst) inst.hide();
+      }
     });
+  });
 });
