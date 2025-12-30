@@ -29,6 +29,65 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+// Call from service modal to start estimation flow while closing the service modal smoothly
+function getEstimationFromModal(serviceType) {
+  // 1) set the estimator service dropdown and update addons UI
+  const serviceSelect = document.getElementById('serviceType');
+  if (serviceSelect) {
+    serviceSelect.value = serviceType;
+    // updateAddons is defined in estimator.js — ensures the estimator UI matches the selected service
+    if (typeof updateAddons === 'function') {
+      try { updateAddons(); } catch (e) { console.warn('updateAddons failed', e); }
+    }
+  }
+
+  // 2) hide the currently open service modal, then show estimator / customer modal after it's hidden
+  const serviceModalEl = document.getElementById('serviceModal');
+  const customerModalEl = document.getElementById('customerFormModal');
+
+  if (!serviceModalEl) {
+    // no service modal element — fallback: scroll to estimator and show customer modal
+    const el = document.getElementById('estimator');
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (customerModalEl) new bootstrap.Modal(customerModalEl).show();
+    return;
+  }
+
+  // Register a one-time 'hidden' handler so we show the customer modal only after the service modal is fully hidden
+  const onHidden = function () {
+    serviceModalEl.removeEventListener('hidden.bs.modal', onHidden);
+
+    // scroll to estimator to make it visible under the customer modal
+    const est = document.getElementById('estimator');
+    if (est) est.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    // small delay to allow scroll/paint; then show customer modal
+    setTimeout(() => {
+      if (customerModalEl) {
+        const cm = new bootstrap.Modal(customerModalEl);
+        cm.show();
+      } else {
+        // fallback: ensure estimator is visible
+        const anchor = document.getElementById('estimator');
+        if (anchor) anchor.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 220);
+  };
+
+  serviceModalEl.addEventListener('hidden.bs.modal', onHidden);
+
+  // Hide the service modal using bootstrap instance (if exists) or create and hide
+  const currentInstance = bootstrap.Modal.getInstance(serviceModalEl);
+  if (currentInstance) {
+    currentInstance.hide();
+  } else {
+    // create instance then hide
+    const tmp = new bootstrap.Modal(serviceModalEl);
+    tmp.hide();
+  }
+}
+
+  
   // 2) service select change -> update addons
   if (serviceSelect) {
     serviceSelect.addEventListener('change', () => {
@@ -222,7 +281,10 @@ function openServiceModal(serviceType) {
   if (titleEl) titleEl.textContent = s.title;
   if (contentEl) {
     const featuresHtml = (s.features || []).map(f => `<div class="service-feature"><i class="${f.icon}"></i><p>${f.text}</p></div>`).join('');
-    contentEl.innerHTML = `<h4>${s.title}</h4><p class="text-muted">${s.description}</p><div class="service-modal-features">${featuresHtml}</div><div class="price-info"><strong>Starting at ${s.price}</strong></div><div class="mt-3"><button class="btn btn-primary me-2" onclick="scrollToEstimatorWithService('${serviceType}')">Get Estimation</button><button class="btn btn-outline-primary" onclick="openWhatsApp()">Chat Now</button></div>`;
+    contentEl.innerHTML = `<h4>${s.title}</h4><p class="text-muted">${s.description}</p><div class="service-modal-features">${featuresHtml}</div><div class="price-info"><strong>Starting at ${s.price}</strong></div><div class="mt-3"><button class="btn btn-primary btn-lg me-3" onclick="getEstimationFromModal('${serviceType}')">
+  <i class="fas fa-calculator"></i> Get Estimation
+</button>
+<button class="btn btn-outline-primary" onclick="openWhatsApp()">Chat Now</button></div>`;
   }
   const m = new bootstrap.Modal(document.getElementById('serviceModal'));
   m.show();
