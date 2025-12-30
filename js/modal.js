@@ -1,13 +1,11 @@
-// modal.js - robust modal handlers (single listeners)
+// modal.js - image & video modal handlers (single-lifecycle listeners)
 
-// Cached elements
 const imageModalEl = document.getElementById('imageModal');
 const videoModalEl = document.getElementById('videoModal');
 const modalImage = document.getElementById('modalImage');
 const modalVideo = document.getElementById('modalVideo');
 const videoModalTitle = document.getElementById('videoModalTitle');
 
-// Open image modal
 function openImageModal(src, alt = 'Image') {
   if (!modalImage || !imageModalEl) return;
   modalImage.src = src;
@@ -16,22 +14,18 @@ function openImageModal(src, alt = 'Image') {
   m.show();
 }
 
-// Open video modal
 function openVideoModal(title, src) {
   if (!modalVideo || !videoModalEl) return;
-  videoModalTitle.textContent = title || 'Video';
-  // set source and play when modal shown
+  if (videoModalTitle) videoModalTitle.textContent = title || 'Video';
   modalVideo.src = src;
   const m = new bootstrap.Modal(videoModalEl);
   m.show();
 }
 
-// Attach single event listeners (once)
 document.addEventListener('DOMContentLoaded', () => {
   if (videoModalEl && modalVideo) {
     videoModalEl.addEventListener('shown.bs.modal', () => {
-      // try play (may be blocked by autoplay policy)
-      try { modalVideo.play(); } catch (e) { /* ignore */ }
+      try { modalVideo.play(); } catch (e) { /* autoplay blocked */ }
     });
 
     videoModalEl.addEventListener('hidden.bs.modal', () => {
@@ -42,8 +36,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // close on backdrop click (safe)
-  [imageModalEl, videoModalEl].forEach(modal => {
+  // close on backdrop click for each modal element (safe)
+  [imageModalEl, videoModalEl, document.getElementById('serviceModal'), document.getElementById('customerFormModal')].forEach(modal => {
     if (!modal) return;
     modal.addEventListener('click', (e) => {
       if (e.target === modal) {
@@ -51,5 +45,22 @@ document.addEventListener('DOMContentLoaded', () => {
         if (inst) inst.hide();
       }
     });
+  });
+
+  // Delegate clicks from service cards & video buttons
+  document.addEventListener('click', (e) => {
+    // service card image click
+    const img = e.target.closest('.service-img');
+    if (img && img.dataset && img.dataset.img) {
+      openImageModal(img.dataset.img, img.alt || '');
+    }
+
+    // view video button
+    const vbtn = e.target.closest('.view-video-btn');
+    if (vbtn) {
+      const title = vbtn.getAttribute('data-video-title') || 'Product Video';
+      const src = vbtn.getAttribute('data-video-src');
+      if (src) openVideoModal(title, src);
+    }
   });
 });
