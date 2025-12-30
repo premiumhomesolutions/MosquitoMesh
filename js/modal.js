@@ -1,53 +1,77 @@
-// Modal functionality for images and videos
+// modal.js
+// Modal functionality for images and videos (clean, single-listener approach)
+
+// Helpers to get elements
+const modalImageEl = document.getElementById('modalImage');
+const modalVideoEl = document.getElementById('modalVideo');
+const videoModalEl = document.getElementById('videoModal');
+const imageModalEl = document.getElementById('imageModal');
 
 // Image Modal
 function openImageModal(imageSrc) {
-    const modalImage = document.getElementById('modalImage');
-    modalImage.src = imageSrc;
-    modalImage.alt = 'Product Image';
-    
-    const imageModal = new bootstrap.Modal(document.getElementById('imageModal'));
+    if (!modalImageEl) return;
+    modalImageEl.src = imageSrc;
+    modalImageEl.alt = 'Product Image';
+
+    if (typeof bootstrap === 'undefined') {
+        console.error('Bootstrap is required for modals.');
+        return;
+    }
+
+    const imageModal = new bootstrap.Modal(imageModalEl);
     imageModal.show();
 }
 
 // Video Modal
 function openVideoModal(title, videoSrc) {
-    const modalVideo = document.getElementById('modalVideo');
     const modalTitle = document.getElementById('videoModalTitle');
-    
-    modalTitle.textContent = title;
-    modalVideo.src = videoSrc;
-    
-    const videoModal = new bootstrap.Modal(document.getElementById('videoModal'));
+    if (modalTitle) modalTitle.textContent = title;
+
+    if (!modalVideoEl) return;
+    // set src (use dataset to avoid reloading strangely)
+    modalVideoEl.src = videoSrc;
+
+    if (typeof bootstrap === 'undefined') {
+        console.error('Bootstrap is required for modals.');
+        return;
+    }
+
+    const videoModal = new bootstrap.Modal(videoModalEl);
     videoModal.show();
-    
-    // Play video when modal opens
-    videoModal._element.addEventListener('shown.bs.modal', function () {
-        modalVideo.play();
-    });
-    
-    // Pause video when modal closes
-    videoModal._element.addEventListener('hidden.bs.modal', function () {
-        modalVideo.pause();
-        modalVideo.currentTime = 0;
-    });
 }
 
-// Close modals when clicking outside
-document.addEventListener('DOMContentLoaded', function() {
-    const imageModal = document.getElementById('imageModal');
-    const videoModal = document.getElementById('videoModal');
+// Attach single event listeners (only once)
+document.addEventListener('DOMContentLoaded', function () {
+    if (!videoModalEl || !modalVideoEl) return;
+
+    // Use event delegation via the modal element (bootstrap emits events on the element)
+    videoModalEl.addEventListener('shown.bs.modal', () => {
+        // Play only if source set
+        try { modalVideoEl.play(); } catch (e) { /* ignore autoplay restrictions */ }
+    });
+
+    videoModalEl.addEventListener('hidden.bs.modal', () => {
+        // Pause and reset when closed
+        try {
+            modalVideoEl.pause();
+            modalVideoEl.currentTime = 0;
+            // Optionally clear src to free memory
+            modalVideoEl.removeAttribute('src');
+            modalVideoEl.load();
+        } catch (e) { /* ignore */ }
+    });
+
+    // Close modals by clicking outside (backdrop element)
     const serviceModal = document.getElementById('serviceModal');
     const customerFormModal = document.getElementById('customerFormModal');
-    
-    [imageModal, videoModal, serviceModal, customerFormModal].forEach(modal => {
-        if (modal) {
-            modal.addEventListener('click', function(e) {
-                if (e.target === modal) {
-                    const modalInstance = bootstrap.Modal.getInstance(modal);
-                    modalInstance.hide();
-                }
-            });
-        }
+
+    [imageModalEl, videoModalEl, serviceModal, customerFormModal].forEach(modal => {
+        if (!modal) return;
+        modal.addEventListener('click', function (e) {
+            if (e.target === modal) {
+                const instance = bootstrap.Modal.getInstance(modal);
+                if (instance) instance.hide();
+            }
+        });
     });
 });
