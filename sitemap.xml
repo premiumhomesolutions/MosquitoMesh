@@ -1,50 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
-  <!-- HOME -->
   <url>
     <loc>https://premiumhomesolutions.github.io/MosquitoMesh/</loc>
+    <lastmod>2026-01-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
 
-  <!-- CORE SECTIONS -->
   <url>
     <loc>https://premiumhomesolutions.github.io/MosquitoMesh/#services</loc>
+    <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <url>
-    <loc>https://premiumhomesolutions.github.io/MosquitoMesh/#estimator</loc>
+    <loc>https://premiumhomesolutions.github.io/MosquitoMesh/#estimation</loc>
+    <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 
-  <!-- TELANGANA CITIES -->
-  <url><loc>https://premiumhomesolutions.github.io/MosquitoMesh/#hyderabad</loc><priority>0.8</priority></url>
-  <url><loc>https://premiumhomesolutions.github.io/MosquitoMesh/#secunderabad</loc><priority>0.8</priority></url>
-  <url><loc>https://premiumhomesolutions.github.io/MosquitoMesh/#warangal</loc><priority>0.8</priority></url>
-  <url><loc>https://premiumhomesolutions.github.io/MosquitoMesh/#nizamabad</loc><priority>0.7</priority></url>
-  <url><loc>https://premiumhomesolutions.github.io/MosquitoMesh/#karimnagar</loc><priority>0.7</priority></url>
-  <url><loc>https://premiumhomesolutions.github.io/MosquitoMesh/#khammam</loc><priority>0.7</priority></url>
-  <url><loc>https://premiumhomesolutions.github.io/MosquitoMesh/#mahbubnagar</loc><priority>0.7</priority></url>
-  <url><loc>https://premiumhomesolutions.github.io/MosquitoMesh/#adilabad</loc><priority>0.7</priority></url>
-  <url><loc>https://premiumhomesolutions.github.io/MosquitoMesh/#suryapet</loc><priority>0.7</priority></url>
-  <url><loc>https://premiumhomesolutions.github.io/MosquitoMesh/#miryalaguda</loc><priority>0.7</priority></url>
+  <url>
+    <loc>https://premiumhomesolutions.github.io/MosquitoMesh/#testimonials</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
 
-  <!-- ANDHRA PRADESH CITIES -->
-  <url><loc>https://premiumhomesolutions.github.io/MosquitoMesh/#vijayawada</loc><priority>0.8</priority></url>
-  <url><loc>https://premiumhomesolutions.github.io/MosquitoMesh/#visakhapatnam</loc><priority>0.8</priority></url>
-  <url><loc>https://premiumhomesolutions.github.io/MosquitoMesh/#guntur</loc><priority>0.8</priority></url>
-  <url><loc>https://premiumhomesolutions.github.io/MosquitoMesh/#nellore</loc><priority>0.7</priority></url>
-  <url><loc>https://premiumhomesolutions.github.io/MosquitoMesh/#kurnool</loc><priority>0.7</priority></url>
-  <url><loc>https://premiumhomesolutions.github.io/MosquitoMesh/#tirupati</loc><priority>0.7</priority></url>
-  <url><loc>https://premiumhomesolutions.github.io/MosquitoMesh/#kadapa</loc><priority>0.7</priority></url>
-  <url><loc>https://premiumhomesolutions.github.io/MosquitoMesh/#rajahmundry</loc><priority>0.7</priority></url>
-  <url><loc>https://premiumhomesolutions.github.io/MosquitoMesh/#kakinada</loc><priority>0.7</priority></url>
-  <url><loc>https://premiumhomesolutions.github.io/MosquitoMesh/#anantapur</loc><priority>0.7</priority></url>
-  <url><loc>https://premiumhomesolutions.github.io/MosquitoMesh/#eluru</loc><priority>0.7</priority></url>
-  <url><loc>https://premiumhomesolutions.github.io/MosquitoMesh/#ongole</loc><priority>0.7</priority></url>
-  <url><loc>https://premiumhomesolutions.github.io/MosquitoMesh/#vizianagaram</loc><priority>0.7</priority></url>
-  <url><loc>https://premiumhomesolutions.github.io/MosquitoMesh/#srikakulam</loc><priority>0.7</priority></url>
+  <url>
+    <loc>https://premiumhomesolutions.github.io/MosquitoMesh/#faq</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://premiumhomesolutions.github.io/MosquitoMesh/#contact</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
 
 </urlset>
