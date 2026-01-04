@@ -2,7 +2,7 @@
 
 A high-conversion lead generation web application for premium home solutions in Hyderabad, specializing in mesh doors, invisible grills, UPVC windows, and LED mirrors.
 
-## Project Overview
+## Project Overview.
 
 This single-page application is designed to dominate local SEO in Hyderabad for the specified niche and convert website traffic into qualified leads using strategic CTAs, a smart lead form, and a floating WhatsApp chatbot.
 
